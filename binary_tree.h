@@ -4,25 +4,50 @@ using namespace std;
 
 struct Node
 {
+    Node (int iValue): iPayload(iValue), ptrLeft(nullptr), ptrRight(nullptr) {}
     int iPayload;
     struct Node* ptrLeft;
     struct Node* ptrRight;
 };
-
-Node* newNode(int iData)
+class SearchTree
 {
-    Node* newNode = new Node;
-    newNode->iPayload = iData;
-    newNode->ptrLeft = nullptr;
-    newNode->ptrRight = nullptr;
+private:
+    Node* _ptrRoot;
+    Node* insertNode(Node* node, int iData);
+    Node* searchNode(Node* node, int iData);
+    void traversePreOrder(Node* ptrNode);
+    void traversePostOrder(Node* ptrNode);
+    void traverseInOrder(Node* ptrNode);
+    int getHeight(Node* node);
+    void deleteSearchTree(Node *ptrNode);
+public:
+    SearchTree();
+    ~SearchTree();
+    void insertNode(int iData){insertNode(_ptrRoot, iData);}
+    Node* searchNode(int iData){return searchNode(_ptrRoot, iData);}
+    void traversePreOrder(){traversePreOrder(_ptrRoot);}
+    void traversePostOrder(){traversePostOrder(_ptrRoot);}
+    void traverseInOrder(){traverseInOrder(_ptrRoot);}
+    int getHeight(){return getHeight(_ptrRoot);}
+    void deleteSearchTree(){deleteSearchTree(_ptrRoot);}
 
-    return newNode;
+};
+
+SearchTree::SearchTree()
+{
+        _ptrRoot = nullptr;
 }
 
-Node* insertNode(Node* node, int iData)
-{
-    if (node == nullptr) return newNode(iData);
 
+
+Node* SearchTree::insertNode(Node* node, int iData)
+{
+    if (node == nullptr)
+    {
+        Node* newNode = new Node(iData);
+        if (_ptrRoot == nullptr) _ptrRoot = newNode;
+        return newNode;
+    }
     if (iData < node->iPayload)
     {
         node->ptrLeft = insertNode(node->ptrLeft, iData);
@@ -34,21 +59,7 @@ Node* insertNode(Node* node, int iData)
     return node;
 }
 
-Node* deleteNode(Node* node, int iData)
-{
-    if (node == nullptr) return node;
-
-    if (iData < node->iPayload) node->ptrLeft = deleteNode(node->ptrLeft, iData);
-    else if (iData > node->iPayload) node->ptrRight = deleteNode(node->ptrRight, iData);
-    else
-    {
-
-
-    }
-
-    return node;
-}
-void traversePreOrder(Node* ptrNode)
+void SearchTree::traversePreOrder(Node* ptrNode)
 {
     if(ptrNode!=nullptr)
     {
@@ -57,7 +68,24 @@ void traversePreOrder(Node* ptrNode)
         traversePreOrder(ptrNode->ptrRight);
     }
 }
-void traversePostOrder(Node* ptrNode)
+
+void SearchTree::deleteSearchTree(Node *ptrNode) 
+{
+       if (!ptrNode) return;
+    	
+    /* first delete both subtrees */
+    deleteSearchTree(ptrNode->ptrLeft);
+    deleteSearchTree(ptrNode->ptrRight);
+     
+    delete ptrNode;
+}
+
+SearchTree::~SearchTree()
+{
+        deleteSearchTree(_ptrRoot);
+}
+
+void SearchTree::traversePostOrder(Node* ptrNode)
 {
     if(ptrNode!=nullptr)
     {
@@ -66,14 +94,14 @@ void traversePostOrder(Node* ptrNode)
         cout << ptrNode->iPayload << ' ';
     }
 }
-Node* searchNode(Node* node, int iData)
+Node* SearchTree::searchNode(Node* node, int iData)
 {
     if (node == nullptr) return nullptr;
     else if (node->iPayload == iData) return node;
-    else if (node->iPayload <iData) return searchNode(node->ptrLeft, iData);
+    else if (node->iPayload > iData) return searchNode(node->ptrLeft, iData);
     else return searchNode(node->ptrRight, iData);
 }
-void traverseInOrder(Node* ptrNode)
+void SearchTree::traverseInOrder(Node* ptrNode)
 {
     if(ptrNode!=nullptr)
     {
@@ -81,4 +109,10 @@ void traverseInOrder(Node* ptrNode)
         cout << ptrNode->iPayload << ' ';
         traverseInOrder(ptrNode->ptrRight);
     }
+}
+int SearchTree::getHeight(Node* ptrNode)
+{
+    if(!ptrNode) return 0;
+    
+    return 1 + max(getHeight(ptrNode->ptrLeft), getHeight(ptrNode->ptrRight));
 }
