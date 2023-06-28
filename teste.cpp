@@ -23,10 +23,12 @@ int main()
     cout<<"Height: ";
     int i = tree.getHeight();
     cout<<i<<endl;
-    cout<<"Search: ";
-    cout<<tree.searchNode(7)<<endl;
-    cout<<"Delete: ";
-    tree.deleteSearchTree();
+    cout<<"delete node: ";
+    tree.deleteNode(tree.searchNode(7));
+    tree.traversePreOrder();
+    cout<<endl;
+    cout<<"maximun: ";
+    cout<<tree.maximun()->iPayload;
     cout<<endl;
     return 0;
 }
