@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <cmath>
 using namespace std;
 
 struct Node
@@ -30,6 +30,9 @@ private:
     struct Node* minimum(struct Node *ptrNode);
     struct Node* maximum(struct Node* ptrNode);
     void transplantNodes(struct Node *ptrNode0, struct Node* ptrNode1);
+    int getSize(struct Node* ptrNode);
+    bool isComplete(struct Node* ptrNode);
+    bool isPerfect(struct Node* ptrNode);
 
 public:
     SearchTree();
@@ -44,6 +47,9 @@ public:
     int getHeight(){return getHeight(_ptrRoot);}
     void deleteSearchTree();
     void deleteNode(struct Node* ptrNode);
+    int getSize(){return getSize(_ptrRoot);}
+    bool isComplete(){return isComplete(_ptrRoot);}
+    bool isPerfect(){return isPerfect(_ptrRoot);}
 
 };
 
@@ -116,6 +122,7 @@ void SearchTree::transplantNodes(struct Node* ptrOld, struct Node* ptrNew)
 
 void SearchTree::deleteNode(struct Node* ptrNode)
 {
+    if (ptrNode == nullptr) return;
     if (ptrNode->ptrLeft == nullptr)
         transplantNodes(ptrNode, ptrNode->ptrRight);
     else if (ptrNode->ptrRight == nullptr)
@@ -172,7 +179,28 @@ void SearchTree::traverseInOrder(struct Node* ptrNode)
 }
 int SearchTree::getHeight(struct Node* ptrNode)
 {
+
     if(!ptrNode) return 0;
     
     return 1 + max(getHeight(ptrNode->ptrLeft), getHeight(ptrNode->ptrRight));
+}
+
+int SearchTree::getSize(struct Node* ptrNode)
+{
+    if (!ptrNode) return 0;
+
+    return 1 + getSize(ptrNode->ptrLeft) + getSize(ptrNode->ptrRight);
+}
+
+bool SearchTree::isComplete(struct Node* ptrNode)
+{
+    if (!ptrNode) return true;
+    if (!ptrNode->ptrLeft && ptrNode->ptrRight) return false;
+
+    return isComplete(ptrNode->ptrLeft) && isComplete(ptrNode->ptrRight);
+}
+
+bool SearchTree::isPerfect(struct Node* ptrNode)
+{
+    return getSize(_ptrRoot) == pow(2,getHeight(_ptrRoot))-1;
 }

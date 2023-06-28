@@ -1,5 +1,5 @@
 #include <iostream>
-#include "binary_tree.h"
+#include "binarySearchTree.h"
 
 using namespace std;
 
@@ -9,8 +9,8 @@ int main()
     tree.insertNode(10);
     tree.insertNode(5);
     tree.insertNode(15);
-    tree.insertNode(3);
     tree.insertNode(7);
+    tree.insertNode(3);
     cout<<"PreOrder: ";
     tree.traversePreOrder();
     cout<<endl;
@@ -30,6 +30,9 @@ int main()
     cout<<"maximun: ";
     cout<<tree.maximun()->iPayload;
     cout<<endl;
+    cout<<"size: "<<tree.getSize()<<endl;
+    cout<<"is complete: "<<tree.isComplete()<<endl;
+    cout<<"is perfect: "<<tree.isPerfect()<<endl;
     cout<<"delete:";
     tree.deleteSearchTree();
     tree.insertNode(42);
