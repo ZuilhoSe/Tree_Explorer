@@ -9,18 +9,24 @@ struct Node
     struct Node* ptrLeft = nullptr;
     struct Node* ptrRight = nullptr;
     struct Node* ptrParent;
+    ~Node(){
+        delete ptrLeft;
+        delete ptrRight;
+        ptrParent = nullptr;
+        ptrLeft = nullptr;
+        ptrRight = nullptr;
+    }
 };
 class SearchTree
 {
 private:
-    struct Node* _ptrRoot;
+    struct Node* _ptrRoot = nullptr;
     void insertNode(struct Node* node, int iData);
     struct Node* searchNode(struct Node* node, int iData);
     void traversePreOrder(struct Node* ptrNode);
     void traversePostOrder(struct Node* ptrNode);
     void traverseInOrder(struct Node* ptrNode);
     int getHeight(struct Node* node);
-    void deleteSearchTree(struct Node *ptrNode);
     struct Node* minimum(struct Node *ptrNode);
     struct Node* maximum(struct Node* ptrNode);
     void transplantNodes(struct Node *ptrNode0, struct Node* ptrNode1);
@@ -36,14 +42,13 @@ public:
     void traversePostOrder(){traversePostOrder(_ptrRoot);}
     void traverseInOrder(){traverseInOrder(_ptrRoot);}
     int getHeight(){return getHeight(_ptrRoot);}
-    void deleteSearchTree(){deleteSearchTree(_ptrRoot);}
+    void deleteSearchTree();
     void deleteNode(struct Node* ptrNode);
 
 };
 
 SearchTree::SearchTree()
 {
-        _ptrRoot = nullptr;
 }
 
 
@@ -75,15 +80,11 @@ void SearchTree::traversePreOrder(struct Node* ptrNode)
     }
 }
 
-void SearchTree::deleteSearchTree(struct Node *ptrNode) 
+void SearchTree::deleteSearchTree() 
 {
-    if (!ptrNode) return;
-    	
-    /* first delete both subtrees */
-    deleteSearchTree(ptrNode->ptrLeft);
-    deleteSearchTree(ptrNode->ptrRight);
-     
-    delete ptrNode;
+    if (!_ptrRoot) return;
+    delete _ptrRoot;
+    _ptrRoot = nullptr;
 }
 
 struct Node* SearchTree::minimum(struct Node *ptrNode)
@@ -136,7 +137,7 @@ void SearchTree::deleteNode(struct Node* ptrNode)
 
 SearchTree::~SearchTree()
 {
-        deleteSearchTree(_ptrRoot);
+        deleteSearchTree();
 }
 
 void SearchTree::traversePostOrder(struct Node* ptrNode)
@@ -150,6 +151,11 @@ void SearchTree::traversePostOrder(struct Node* ptrNode)
 }
 struct Node* SearchTree::searchNode(struct Node* node, int iData)
 {
+    /**
+     * @brief Searches for a node with the given data
+     * 
+     * @returns the node with the given data, or nullptr if not found
+     */
     if (node == nullptr) return nullptr;
     else if (node->iPayload == iData) return node;
     else if (node->iPayload > iData) return searchNode(node->ptrLeft, iData);

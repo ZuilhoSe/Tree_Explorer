@@ -30,5 +30,10 @@ int main()
     cout<<"maximun: ";
     cout<<tree.maximun()->iPayload;
     cout<<endl;
+    cout<<"delete:";
+    tree.deleteSearchTree();
+    tree.insertNode(42);
+    tree.traverseInOrder();
+    cout<<endl;
     return 0;
 }
