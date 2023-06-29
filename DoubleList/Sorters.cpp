@@ -4,11 +4,17 @@
 
 void BubbleSorter::sort(){
     bool swapped;
-    this->list;
+    DoubleNode* ptr1=this->list->getFirst();
 
     if (this->list->length() == 0) {
         return;
     }
+
+    do {
+        swapped = false;
+        
+    } while{true}
+
 
 }
 
