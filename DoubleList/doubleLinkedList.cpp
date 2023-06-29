@@ -19,7 +19,7 @@ DoubleList::~DoubleList()
     }
 }
 
-void DoubleList::appendValue(int iPayload)
+void DoubleList::pushLast(int iPayload)
 {
     DoubleNode* newNode = new DoubleNode(iPayload);
 
@@ -42,7 +42,7 @@ void DoubleList::appendValue(int iPayload)
     return;
 }
 
-void DoubleList::prependValue(int iPayload)
+void DoubleList::pushFirst(int iPayload)
 {
     DoubleNode* newNode = new DoubleNode(iPayload);
 
@@ -63,6 +63,30 @@ void DoubleList::prependValue(int iPayload)
     this->_length++;
 
     return;
+}
+
+int DoubleList::popLast()
+{
+    int returnValue = this->last->iPayload;
+
+    this->last = this->last->prev;
+    delete this->last->next;
+
+    this->_length--;
+
+    return returnValue;
+}
+
+int DoubleList::popFirst()
+{
+    int returnValue = this->first->iPayload;
+
+    this->first = this->first->next;
+    delete this->first->prev;
+
+    this->_length--;
+
+    return returnValue;
 }
 
 void DoubleList::printList()

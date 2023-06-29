@@ -4,10 +4,20 @@
 int main()
 {
     DoubleList testList;
-    testList.appendValue(5);
-    testList.appendValue(10);
-    testList.prependValue(-10);
-    testList.appendValue(20);
+    testList.pushLast(5);
+    testList.pushLast(10);
+    std::cout << testList.length() << std::endl;
+    testList.printList();
+
+    testList.pushFirst(-10);
+    testList.pushLast(20);
+    std::cout << testList.length() << std::endl;
+    testList.printList();
+
+    std::cout << testList.popFirst() << std::endl;
+    testList.printList();
+
+    std::cout << testList.popLast() << std::endl;
     testList.printList();
 
     return 0;

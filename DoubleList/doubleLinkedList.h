@@ -29,8 +29,13 @@ typedef class DoubleList
         ~DoubleList();
 
         unsigned int length() {return _length;}
-        void appendValue(int);
-        void prependValue(int);
+
+        void pushFirst(int);
+        void pushLast(int);
+
+        int popFirst();
+        int popLast();
+
         void printList();
 }
 DoubleList;
