@@ -5,6 +5,9 @@ using namespace std;
 
 int main()
 {
+    /*
+        Teste de funções base da classe SearchTree
+    */
     SearchTree tree;
     tree.insertNode(10);
     tree.insertNode(5);
@@ -38,5 +41,27 @@ int main()
     tree.insertNode(42);
     tree.traverseInOrder();
     cout<<endl;
+
+    /*
+        Teste de leitura de arquivo txt
+    */
+    SearchTree tree_txt1;
+    cout << "Teste de leitura de arquivo tree1" << endl;
+    tree_txt1.createFromTxt("tree1.txt");
+    tree_txt1.traversePostOrder();
+    cout<<endl;
+
+    SearchTree tree_txt2;
+    cout << "Teste de leitura de arquivo tree2" << endl;
+    tree_txt2.createFromTxt("tree2.txt");
+    tree_txt2.traversePostOrder();
+    cout<<endl;
+
+    SearchTree tree_txt3;
+    cout << "Teste de leitura de arquivo tree3" << endl;
+    tree_txt3.createFromTxt("tree3.txt");
+    tree_txt3.traversePostOrder();
+    cout<<endl;
+
     return 0;
 }

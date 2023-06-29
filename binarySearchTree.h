@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <fstream>
 using namespace std;
 
 struct Node
@@ -17,6 +18,7 @@ struct Node
         ptrRight = nullptr;
     }
 };
+
 class SearchTree
 {
 private:
@@ -33,6 +35,7 @@ private:
     int getSize(struct Node* ptrNode);
     bool isComplete(struct Node* ptrNode);
     bool isPerfect(struct Node* ptrNode);
+    void readBinaryTree(Node*& ptrNode, ifstream& fin);
 
 public:
     SearchTree();
@@ -50,14 +53,12 @@ public:
     int getSize(){return getSize(_ptrRoot);}
     bool isComplete(){return isComplete(_ptrRoot);}
     bool isPerfect(){return isPerfect(_ptrRoot);}
-
+    void createFromTxt(string sFilename);
 };
 
 SearchTree::SearchTree()
 {
 }
-
-
 
 void SearchTree::insertNode(struct Node* node, int iData)
 {
@@ -203,4 +204,58 @@ bool SearchTree::isComplete(struct Node* ptrNode)
 bool SearchTree::isPerfect(struct Node* ptrNode)
 {
     return getSize(_ptrRoot) == pow(2,getHeight(_ptrRoot))-1;
+}
+
+bool readNextToken(int& token, ifstream& fin, bool& isNumber) 
+{
+    char nextChar;
+    fin >> nextChar;
+
+    // Verifica se o próximo caractere é um número ou não
+    if (isdigit(nextChar)) 
+    {
+        fin.unget(); 
+        fin >> token;
+        isNumber = true;
+    } 
+    else 
+    {
+        isNumber = false;
+    }
+
+    // Verifica se ocorreu um erro ao ler o token
+    if (fin.fail()) 
+    {
+        return false;
+    }
+
+    return true;
+}
+
+void SearchTree::readBinaryTree(Node*& ptrNode, ifstream& fin) 
+{
+    int token;
+    bool isNumber;
+    
+    while (readNextToken(token, fin, isNumber)) 
+    {
+        if (isNumber) 
+        {
+            insertNode(ptrNode, token);
+        }
+    }
+}
+
+void SearchTree::createFromTxt(string sFilename) 
+{
+    ifstream fin(sFilename);
+  
+    if (!fin) 
+    {
+        cout << "Erro ao abrir o arquivo." << endl;
+        return;
+    }
+    
+    readBinaryTree(_ptrRoot, fin);
+    fin.close();
 }
