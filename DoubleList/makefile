@@ -6,3 +6,6 @@ listTest: doubleLinkedList.o listTest.cpp
 
 doubleLinkedList.o: doubleLinkedList.cpp doubleLinkedList.h
 	g++ doubleLinkedList.cpp -c
+
+clean:
+	rm listTest doubleLinkedList.o
