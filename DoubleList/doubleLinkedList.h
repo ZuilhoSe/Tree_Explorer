@@ -29,6 +29,8 @@ typedef class DoubleList
         ~DoubleList();
 
         unsigned int length() {return _length;}
+        DoubleNode* getFirst() {return first;}
+        DoubleNode* getLast() {return last;}
 
         void pushFirst(int);
         void pushLast(int);
