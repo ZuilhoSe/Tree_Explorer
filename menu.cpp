@@ -67,28 +67,6 @@ void printWorkInfo()
     cout << "   - Zuzu" << endl;
 }
 
-SearchTree buildTreeFromInput()
-{
-    SearchTree tree;
-    string input;
-    int number;
-    
-    cout << "Digite os numeros (# para parar), o primeiro numero sera a raiz: " << endl;
-
-    while (cin >> input) {
-        if (input == "#") {
-            break;
-        } else if (isdigit(input[0])) {
-            number = stoi(input);
-            tree.insertNode(number);
-        } else {
-            cout << "Entrada invalida. Digite novamente:" << endl;
-        }
-    }
-    
-    return tree;
-}
-
 int main()
 {
     int iOption;
@@ -97,6 +75,7 @@ int main()
     bool keepRunning = true;
     Node* ptrNode;
 
+    system("cls");
     printHeader();
     cout << "Para comecar, e preciso criar uma arvore:" << endl;
     cout << "   1 - contruir Arvore a partir de arquivo" << endl;
@@ -112,7 +91,7 @@ int main()
             tree.createFromTxt(sFilename);
             break;
         case 2:
-            tree = buildTreeFromInput();
+            tree.buildTreeFromInput();
             break;    
     }
 
@@ -183,7 +162,7 @@ int main()
                         cout << "Digite o numero a ser buscado: " << endl;
                         cin >> iOption;
                         ptrNode = tree.searchNode(iOption);
-                        cout << "Endereco de memoria do elemento " << iOption << ": " << &ptrNode << endl;
+                        cout << "Endereco de memoria do elemento " << iOption << ": " << ptrNode << endl;
                         //Espera de 4 segundos
                         Sleep(4000);
                         break;
