@@ -10,8 +10,6 @@ typedef struct DoubleNode
 
     DoubleNode() {}
     DoubleNode(int i): iPayload(i) {}
-
-    ~DoubleNode();
 }
 DoubleNode;
 
