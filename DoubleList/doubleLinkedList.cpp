@@ -1,12 +1,6 @@
 #include <iostream>
 #include "doubleLinkedList.h"
 
-DoubleNode::~DoubleNode()
-{
-    if (this->prev) this->prev->next = nullptr;
-    if (this->next) this->next->prev = nullptr;
-}
-
 DoubleList::~DoubleList()
 {
     DoubleNode* currNode = this->first;
@@ -71,6 +65,7 @@ int DoubleList::popLast()
 
     this->last = this->last->prev;
     delete this->last->next;
+    this->last->next = nullptr;
 
     this->_length--;
 
@@ -83,6 +78,7 @@ int DoubleList::popFirst()
 
     this->first = this->first->next;
     delete this->first->prev;
+    this->first->prev = nullptr;
 
     this->_length--;
 
