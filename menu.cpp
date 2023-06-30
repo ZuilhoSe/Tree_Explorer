@@ -97,7 +97,11 @@ int main()
             break;
         case 2:
             tree.buildTreeFromInput();
-            break;    
+            break;
+        default:
+            cout << "Opção Invalida! E necessario ter uma arvore! Execute o aplicativo novamente!" << endl;
+            return 0;
+            break;
     }
 
     cout << "Arvore criada com sucesso!" << endl;
@@ -161,6 +165,11 @@ int main()
                     case 8:
                         keepRunning = false;
                         break;
+                    default:
+                        cout << "Opcao invalida!" << endl;
+                        //Espera de 4 segundos
+                        Sleep(4000);
+                        break;
                 }
 
                 break;
@@ -209,6 +218,11 @@ int main()
                     case 8:
                         keepRunning = false;
                         break;
+                    default:
+                        cout << "Opcao invalida!" << endl;
+                        //Espera de 4 segundos
+                        Sleep(4000);
+                        break;
                 }
 
                 break;
@@ -219,6 +233,11 @@ int main()
                 break;
             case 4:
                 keepRunning = false;
+                break;
+            default:
+                cout << "Opcao invalida!" << endl;
+                //Espera de 4 segundos
+                Sleep(4000);
                 break;
         }
     }
