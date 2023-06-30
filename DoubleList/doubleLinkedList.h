@@ -24,11 +24,12 @@ typedef class DoubleList
         DoubleList() {}
         DoubleList(DoubleNode* base): first(base), last(base), _length(1) {}
 
+
         ~DoubleList();
 
         unsigned int length() {return _length;}
         DoubleNode* getFirst() {return first;}
-        DoubleNode* getLast() {return last;}
+        void setFirst(DoubleNode* node) {first = node;}
 
         void pushFirst(int);
         void pushLast(int);
