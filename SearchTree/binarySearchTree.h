@@ -62,6 +62,8 @@ public:
     bool isComplete(){return isComplete(_ptrRoot);}
     bool isPerfect(){return isPerfect(_ptrRoot);}
 
+    Node* getRoot(){return this->_ptrRoot;}
+
     void createFromTxt(std::string sFilename);
 }
 SearchTree;
