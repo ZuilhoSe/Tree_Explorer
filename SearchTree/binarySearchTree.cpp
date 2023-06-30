@@ -1,8 +1,9 @@
 #include <iostream>
 #include <cmath>
 #include <fstream>
+#include <queue>
 #include "binarySearchTree.h"
-
+#include "../DoubleList/doubleLinkedList.h"
 using namespace std;
 Node::~Node(){
         delete ptrLeft;
@@ -210,4 +211,24 @@ void SearchTree::createFromTxt(string sFilename)
     
     readBinaryTree(_ptrRoot, fin);
     fin.close();
+}
+
+void SearchTree::traverseBFS()
+{
+    if (!_ptrRoot) return;
+
+    queue<Node*> queueTree;
+    queueTree.push(_ptrRoot);
+
+    while(!queueTree.empty())
+    {
+        Node* ptrCurrent = queueTree.front();
+        queueTree.pop();
+
+        cout << ptrCurrent->iPayload << ' ';
+
+        if (ptrCurrent->ptrLeft) queueTree.push(ptrCurrent->ptrLeft);
+        if (ptrCurrent->ptrRight) queueTree.push(ptrCurrent->ptrRight);
+    }
+    
 }

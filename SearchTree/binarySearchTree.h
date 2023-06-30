@@ -49,6 +49,7 @@ public:
     bool isComplete(){return isComplete(_ptrRoot);}
     bool isPerfect(){return isPerfect(_ptrRoot);}
     void createFromTxt(std::string sFilename);
+    void traverseBFS();
 }
 SearchTree;
 #endif
