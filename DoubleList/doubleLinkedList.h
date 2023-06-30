@@ -34,9 +34,11 @@ typedef class DoubleList
 
         void pushFirst(int);
         void pushLast(int);
+        void insert_sorted(DoubleNode*);
 
         int popFirst();
         int popLast();
+        void remove(DoubleNode*);
 
         void printList();
 }
