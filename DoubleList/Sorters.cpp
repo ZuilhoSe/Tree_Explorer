@@ -81,123 +81,56 @@ void InsertionSorter::sort()
     this->IsSorted = true;
 }
 
+void SelectionSorter::sort(){
+    DoubleNode *current = this->list->getFirst();
 
-// void insert_sorted(Node** headPtr, Node** tailPtr, Node* newNode ){
-//     //Insert the new node in the correct place in the list
-//     Node *current = *headPtr;
-//     while (current!=nullptr)
-//     {
-//         if(newNode->data<=current->data){
-//             //Insert the new node before the current node
-//             if(current->prev!=nullptr && current->next!=nullptr){
-//                 //The current node is not the first or last node
-//                 current->prev->next=newNode;
-//                 newNode->prev=current->prev;
-//                 newNode->next=current;
-//                 current->prev=newNode;
-//                 return;
-//             }
-//             else if(current->prev==nullptr){
-//                 //The current node is the first node
-//                 newNode->next=current;
-//                 current->prev=newNode;
-//                 *headPtr=newNode;
-//                 return;
-//             }
-//         }
-//         current=current->next;
-//     }
-//     //The new node is the last node
-//     (*tailPtr)->next=newNode;
-//     newNode->prev=*tailPtr;
-//     *tailPtr=newNode;
-// }
+    DoubleNode *SortedHead = nullptr;
+    DoubleNode **SortedHeadPtr = &SortedHead;
+    DoubleNode *SortedTail = nullptr;
+    DoubleNode **SortedTailPtr = &SortedTail;
+    DoubleNode *minNode;
+    int min;
 
+    while (this->list->getFirst()!=nullptr) 
+    { 
+        min = (this->list->getFirst())->iPayload;
+        minNode = this->list->getFirst();
+        current = this->list->getFirst();
+        
+        while(current!=nullptr)
+        {
+            if(current->iPayload<min)
+            {
+                min = current->iPayload;
+                minNode = current;
+            }
+            current = current->next;
+        }
 
+        if(minNode->prev!=nullptr && minNode->next!=nullptr)
+        {
+            minNode->prev->next = minNode->next;
+            minNode->next->prev = minNode->prev;
+        }
+        else if (minNode->prev!=nullptr && minNode->next==nullptr)
+        {
+            minNode->prev->next=nullptr;
+            this->list->setLast(minNode->prev);
+        }
+        else if (minNode->prev==nullptr && minNode->next!=nullptr)
+        {
+            minNode->next->prev=nullptr;
+            this->list->setFirst(minNode->next);
+        }
+        else{
+            this->list->setFirst(nullptr);
+            this->list->setLast(nullptr);
+        }
 
-// void Insertion_Sort(Node** headPtr, Node** tailPtr){
-//     Node *SortedHead = nullptr;
-//     Node** SortedHeadPtr = &SortedHead;
-//     Node *SortedTail = nullptr;
-//     Node** SortedTailPtr = &SortedTail;
-
-//     // Insert first node from original list to sorted list
-//     SortedHead = *headPtr;
-//     SortedTail = *headPtr;
-//     *headPtr = (*headPtr)->next;
-//     if(*headPtr != nullptr)
-//         (*headPtr)->prev = nullptr;
-//     SortedHead->next = nullptr;
-//     SortedHead->prev = nullptr;
-
-//     //Process the rest of the nodes
-//     //Remove the head node from the original list and insert it in the sorted list
-//     //into it's correct place until the original list is empty
-//     while (*headPtr != nullptr) { 
-//         Node* current = *headPtr;
-//         *headPtr = (*headPtr)->next; // Remove node from original list
-//         if(*headPtr != nullptr)
-//             (*headPtr)->prev = nullptr;
-//         current->next = nullptr;
-//         current->prev = nullptr;
-//         insert_sorted(SortedHeadPtr, SortedTailPtr, current);
-//     }
-//     *headPtr = SortedHead;
-//     *tailPtr = SortedTail;
-// }
-
-
-
-
-//     void BubbleSort(Node** headRef) 
-//     bool swapped;
-//     Node* ptr1;
-//     Node* lptr = nullptr;
-
-//     if (*headRef == nullptr) {
-//         return;
-//     }
-
-//     do {
-//         swapped = false;
-//         ptr1 = *headRef;
-
-//         while (ptr1->next != lptr) {
-//             if (!comparison(ptr1->data, ptr1->next->data)) {
-//                 // swap nodes
-//                 Node* ptr2 = ptr1->next;
-//                 Node* temp = ptr2->next;
-
-//                 // if the node is the head node
-//                 if(ptr1 == *headRef){
-//                     ptr2->next = ptr1;
-//                     ptr1->next = temp;
-//                     ptr1->prev = ptr2;
-//                     ptr2->prev = nullptr;
-//                     if(temp != nullptr){
-//                         temp->prev = ptr1;
-//                     }
-//                     *headRef = ptr2;
-//                 } else {
-//                     ptr2->next = ptr1;
-//                     ptr1->next = temp;
-//                     ptr2->prev = ptr1->prev;
-//                     ptr1->prev->next = ptr2;
-//                     ptr1->prev = ptr2;
-//                     if(temp != nullptr){
-//                         temp->prev = ptr1;
-//                     }
-//                 }
-                
-//                 // swap ptr1 and ptr2 for next comparison
-//                 Node* tmp = ptr1;
-//                 ptr1 = ptr2;
-//                 ptr2 = tmp;
-
-//                 swapped = true;
-//             }
-//             ptr1 = ptr1->next;
-//         }
-//         lptr = ptr1;
-//     } while (swapped);
-// }
+        minNode->next=nullptr;
+        minNode->prev=nullptr;
+        this->list->insertNode(SortedHeadPtr, SortedTailPtr, minNode);
+    }
+    this->list->setFirst(SortedHead);
+    this->list->setLast(SortedTail);
+}
