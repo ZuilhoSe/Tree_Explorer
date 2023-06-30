@@ -1,6 +1,5 @@
 #include <iostream>
 #include "binarySearchTree.h"
-#include "../DoubleList/doubleLinkedList.h"
 
 using namespace std;
 
