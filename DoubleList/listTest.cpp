@@ -60,7 +60,27 @@ int main()
     selectionsorter.sort();
     testList.printList();
 
+    testList.pushFirst(172);
+    testList.pushFirst(12);
+    testList.pushFirst(122);
+    testList.pushFirst(22);
+    testList.pushFirst(910);
+    testList.pushFirst(91);
+    testList.pushFirst(9);
+    testList.pushFirst(7);
+    testList.pushFirst(8);
+    testList.pushFirst(0);
+    testList.pushFirst(13);
 
+
+    //Shell test
+    ShellSorter shellsorter;
+    new (&shellsorter) ShellSorter();
+    shellsorter.list = &testList;
+    testList.printList();
+    std::cout<<testList.length()<<std::endl;
+    shellsorter.sort();
+    testList.printList();
 
     return 0;
 }
