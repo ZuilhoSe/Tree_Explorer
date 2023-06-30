@@ -27,10 +27,40 @@ int main()
     testList.pushFirst(01);
     testList.printList();
 
-    SelectionSorter sorter;
-    new (&sorter) SelectionSorter();
-    sorter.list = &testList;
-    sorter.sort();
+    //Insertion test
+    InsertionSorter insertionsorter;
+    new (&insertionsorter) InsertionSorter();
+    insertionsorter.list = &testList;
+    insertionsorter.sort();
     testList.printList();
+
+    testList.pushFirst(17);
+    testList.pushFirst(13);
+    testList.pushFirst(1);
+    testList.pushFirst(27);
+    testList.pushFirst(11);
+
+    //Bubble test
+    BubbleSorter bubblesorter;
+    new (&bubblesorter) BubbleSorter();
+    bubblesorter.list = &testList;
+    bubblesorter.sort();
+    testList.printList();
+
+    testList.pushFirst(747);
+    testList.pushFirst(861);
+    testList.pushFirst(1);
+    testList.pushFirst(1091);
+    testList.pushFirst(511);
+
+    //Selection test
+    SelectionSorter selectionsorter;
+    new (&selectionsorter) SelectionSorter();
+    selectionsorter.list = &testList;
+    selectionsorter.sort();
+    testList.printList();
+
+
+
     return 0;
 }

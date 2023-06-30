@@ -54,6 +54,33 @@ void BubbleSorter::sort(){
     } while(swapped);
 }
 
+void InsertionSorter::sort()
+{
+    if (this->list->length() <= 1) {
+        // List is empty or has only one node, so it's already sorted
+        this->IsSorted = true;
+        return;
+    }
+    
+    DoubleNode* currentNode = this->list->getFirst()->next;
+    
+    while (currentNode != nullptr) {
+        DoubleNode* nextNode = currentNode->next; // Save next node since we will disconnect 'currentNode'
+        
+        // Remove current node from the list
+        this->list->remove(currentNode);
+        currentNode->prev = nullptr;
+        currentNode->next = nullptr;
+
+        // Insert it in the sorted part of the list
+        this->list->insert_sorted(currentNode);
+        
+        currentNode = nextNode; // Go to next node
+    }
+    
+    this->IsSorted = true;
+}
+
 void SelectionSorter::sort(){
     DoubleNode *current = this->list->getFirst();
 
