@@ -3,6 +3,7 @@
 #include "SearchTree/binarySearchTree.h"
 #include "DoubleList/doubleLinkedList.h"
 #include "DoubleList/Sorters.h"
+#include "Convert/convertTreeList.h"
 #include <windows.h>
 
 using namespace std;
@@ -79,6 +80,7 @@ int main()
     DoubleList listTree;
     BubbleSorter sorterBubble;
     SelectionSorter sorterSelection;
+    InsertionSorter sorterInsertion;
 
     system("cls");
     printHeader();
@@ -118,6 +120,7 @@ int main()
         switch (iOption)
         {
             case 1:
+            //Manipular Arvore
                 printManipulationMenu();
                 
                 cin >> iOption;
@@ -125,42 +128,76 @@ int main()
                 switch (iOption)
                 {
                     case 1:
+                    //Inserir Elemento
                         cout << "Digite o numero a ser inserido: " << endl;
                         cin >> iOption;
                         tree.insertNode(iOption);
+                        cout << "Elemento inserido com sucesso!" << endl;
+                        //Espera de 1 segundo
+                        Sleep(1000);
                         break;
                     case 2:
+                    //Remover Elemento
                         cout << "Digite o numero a ser deletado: " << endl;
                         cin >> iOption;
+                        cout << "Removendo elemento..." << endl;
+                        //Espera de 1 segundo
+                        Sleep(1000);
                         tree.deleteNode(tree.searchNode(iOption));
                         break;
                     case 3:
+                    //Bubble Sort
                         cout << "Convertendo arvore para lista" << endl;
-                        //listTree = tree.convertToList(listTree);
+                        listTree = convertToListPostOrder(tree);
 
                         new (&sorterBubble) BubbleSorter();
-                    
+
+                        cout<<"Lista desordenada: "<<endl;
+                        listTree.printList();
                         sorterBubble.list = &listTree;
                         sorterBubble.sort();
                         cout << "Lista Ordenada:" << endl;
                         listTree.printList();
+                        //Espera de 4 segundos
+                        Sleep(4000);
                         break;
                     case 4:
+                    //Selection Sort
                         cout << "Convertendo arvore para lista" << endl;
-                        //listTree = tree.convertToList(listTree);
+                        listTree = convertToListPostOrder(tree);
 
                         new (&sorterSelection) SelectionSorter();
-
+                        
+                        cout<<"Lista desordenada: "<<endl;
+                        listTree.printList();
+                        
                         sorterSelection.list = &listTree;
                         sorterSelection.sort();
                         cout << "Lista Ordenada:" << endl;
                         listTree.printList();
+                        //Espera de 4 segundos
+                        Sleep(4000);
                         break;
                     case 5:
+                    //Insertion Sort
+                        cout << "Convertendo arvore para lista" << endl;
+                        listTree = convertToListPostOrder(tree);
+
+                        new (&sorterInsertion) InsertionSorter();
+
+                        cout<<"Lista desordenada: "<<endl;
+                        listTree.printList();
+                        sorterInsertion.list = &listTree;
+                        sorterInsertion.sort();
+                        cout << "Lista Ordenada:" << endl;
+                        listTree.printList();
+                        //Espera de 4 segundos
+                        Sleep(4000);
                         break;
                     case 6: 
                         break;
                     case 7:
+                    //Voltar
                         break;
                     case 8:
                         keepRunning = false;
@@ -174,6 +211,7 @@ int main()
 
                 break;
             case 2:
+            //Informacoes da Arvore
                 printInfoMenu();
 
                 cin >> iOption;
@@ -232,6 +270,7 @@ int main()
                 Sleep(4000);
                 break;
             case 4:
+            //Sair
                 keepRunning = false;
                 break;
             default:
