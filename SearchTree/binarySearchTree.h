@@ -50,6 +50,7 @@ public:
     bool isPerfect(){return isPerfect(_ptrRoot);}
     void createFromTxt(std::string sFilename);
     void traverseBFS();
+    void buildTreeFromInput();
 }
 SearchTree;
 #endif
