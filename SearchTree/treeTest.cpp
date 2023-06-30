@@ -1,5 +1,5 @@
 #include <iostream>
-#include "binarySearchTree.h"
+#include "../SearchTree/binarySearchTree.h"
 
 using namespace std;
 

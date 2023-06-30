@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
-#include "binarySearchTree.h"
+#include "../SearchTree/binarySearchTree.h"
+#include "../DoubleList/doubleLinkedList.h"
+#include "../DoubleList/Sorters.h"
 #include <windows.h>
 
 using namespace std;
@@ -74,6 +76,9 @@ int main()
     string sFilename;
     bool keepRunning = true;
     Node* ptrNode;
+    DoubleList listTree;
+    BubbleSorter sorterBubble;
+    SelectionSorter sorterSelection;
 
     system("cls");
     printHeader();
@@ -126,8 +131,26 @@ int main()
                         tree.deleteNode(tree.searchNode(iOption));
                         break;
                     case 3:
+                        cout << "Convertendo arvore para lista" << endl;
+                        listTree = tree.convertToList(listTree);
+
+                        new (&sorterBubble) BubbleSorter();
+                    
+                        sorterBubble.list = &listTree;
+                        sorterBubble.sort();
+                        cout << "Lista Ordenada:" << endl;
+                        listTree.printList();
                         break;
                     case 4:
+                        cout << "Convertendo arvore para lista" << endl;
+                        listTree = tree.convertToList(listTree);
+
+                        new (&sorterSelection) SelectionSorter();
+
+                        sorterSelection.list = &listTree;
+                        sorterSelection.sort();
+                        cout << "Lista Ordenada:" << endl;
+                        listTree.printList();
                         break;
                     case 5:
                         break;
@@ -177,7 +200,7 @@ int main()
                         Sleep(4000);
                         break;
                     case 6:
-                        tree.traverseInOrder();
+                        tree.traverseBFS();
                         //Espera de 4 segundos
                         Sleep(4000);
                         break;
