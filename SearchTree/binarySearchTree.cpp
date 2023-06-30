@@ -2,7 +2,6 @@
 #include <cmath>
 #include <fstream>
 #include "binarySearchTree.h"
-
 using namespace std;
 Node::~Node(){
         delete ptrLeft;
@@ -211,6 +210,25 @@ void SearchTree::createFromTxt(string sFilename)
     
     readBinaryTree(_ptrRoot, fin);
     fin.close();
+}
+
+void SearchTree::buildTreeFromInput()
+{
+    string input;
+    int number;
+    
+    cout << "Digite os numeros (# para parar), o primeiro numero sera a raiz: " << endl;
+
+    while (cin >> input) {
+        if (input == "#") {
+            break;
+        } else if (isdigit(input[0])) {
+            number = stoi(input);
+            insertNode(number);
+        } else {
+            cout << "Entrada invalida. Digite novamente:" << endl;
+        }
+    }
 }
 
 void SearchTree::traverseBFS()
