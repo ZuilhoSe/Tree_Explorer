@@ -1,5 +1,6 @@
 #include <iostream>
 #include "binarySearchTree.h"
+#include "../DoubleList/doubleLinkedList.h"
 
 using namespace std;
 
@@ -65,5 +66,14 @@ int main()
     cout << "Teste Bfs:" << endl;
     tree_txt3.traverseBFS();
     cout<<endl;
+
+    /*
+        Teste de conversão SearchTree <-> DoubleList
+    */
+    cout << "Teste de conversão SearchTree <-> DoubleList" << endl;
+    DoubleList list_tree3 = tree_txt3.convertToList();
+    cout << "Print da lista gerada InOrder: " << endl;
+    list_tree3.printList();
+
     return 0;
 }

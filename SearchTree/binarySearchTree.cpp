@@ -4,6 +4,7 @@
 #include <queue>
 #include "binarySearchTree.h"
 #include "../DoubleList/doubleLinkedList.h"
+
 using namespace std;
 Node::~Node(){
         delete ptrLeft;
@@ -131,6 +132,7 @@ void SearchTree::traverseInOrder(struct Node* ptrNode)
         traverseInOrder(ptrNode->ptrRight);
     }
 }
+
 int SearchTree::getHeight(struct Node* ptrNode)
 {
 
@@ -231,4 +233,25 @@ void SearchTree::traverseBFS()
         if (ptrCurrent->ptrRight) queueTree.push(ptrCurrent->ptrRight);
     }
     
+}
+
+void pushLastInOrder(struct Node* ptrNode, DoubleList& list)
+{
+    if (ptrNode!=nullptr)
+    {
+        pushLastInOrder(ptrNode->ptrLeft, list);
+        list.pushLast(ptrNode->iPayload);
+        pushLastInOrder(ptrNode->ptrRight, list);
+    }
+
+    return;
+}
+
+DoubleList SearchTree::convertToList()
+{
+    DoubleList list;
+
+    pushLastInOrder(this->_ptrRoot, list);
+
+    return list;
 }
