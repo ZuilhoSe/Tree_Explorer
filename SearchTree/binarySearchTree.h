@@ -13,6 +13,15 @@ typedef struct Node
 }
 Node;
 
+typedef struct treeQueue
+{
+    Node* ptrNode;
+    treeQueue* ptrNext = nullptr;
+    treeQueue(Node* ptrNode): ptrNode(ptrNode) {}
+    treeQueue() {}
+}
+treeQueue;
+
 typedef class SearchTree
 {
 private:
