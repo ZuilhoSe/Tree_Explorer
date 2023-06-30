@@ -1,9 +1,8 @@
 #include <iostream>
 #include <cmath>
 #include <fstream>
-#include <queue>
 #include "binarySearchTree.h"
-#include "../DoubleList/doubleLinkedList.h"
+
 using namespace std;
 Node::~Node(){
         delete ptrLeft;
@@ -131,6 +130,7 @@ void SearchTree::traverseInOrder(struct Node* ptrNode)
         traverseInOrder(ptrNode->ptrRight);
     }
 }
+
 int SearchTree::getHeight(struct Node* ptrNode)
 {
 
@@ -217,18 +217,27 @@ void SearchTree::traverseBFS()
 {
     if (!_ptrRoot) return;
 
-    queue<Node*> queueTree;
-    queueTree.push(_ptrRoot);
+    treeQueue* head = new treeQueue(_ptrRoot);
+    treeQueue* tail = head;
 
-    while(!queueTree.empty())
+    while(head)
     {
-        Node* ptrCurrent = queueTree.front();
-        queueTree.pop();
-
+        Node* ptrCurrent = head->ptrNode;
         cout << ptrCurrent->iPayload << ' ';
-
-        if (ptrCurrent->ptrLeft) queueTree.push(ptrCurrent->ptrLeft);
-        if (ptrCurrent->ptrRight) queueTree.push(ptrCurrent->ptrRight);
+        if (ptrCurrent->ptrLeft) 
+        {
+            tail->ptrNext = new treeQueue(ptrCurrent->ptrLeft);
+            tail = tail->ptrNext;
+        }
+        if (ptrCurrent->ptrRight) 
+        {
+            tail->ptrNext = new treeQueue(ptrCurrent->ptrRight);
+            tail = tail->ptrNext;
+        }
+        treeQueue* ptrTemp = head;
+        head = head->ptrNext;
+        delete ptrTemp;
+        
     }
     
 }
