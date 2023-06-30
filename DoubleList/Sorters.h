@@ -8,7 +8,6 @@ typedef class BubbleSorter
 {
 
     private:
-        bool comparison(int a, int b) {return a > b;}
     public:
         DoubleList* list;
         bool IsSorted=false;
@@ -17,10 +16,9 @@ typedef class BubbleSorter
         BubbleSorter(DoubleList* base): list(base) {}
         ~BubbleSorter() {};
 
-        void sort(){}
+        void sort();
 
-};
-BubbleSorter;
+}BubbleSorter;
 
 
 #endif
