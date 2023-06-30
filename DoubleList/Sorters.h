@@ -46,6 +46,19 @@ typedef class SelectionSorter
         void sort();
 }SelectionSorter;
 
+typedef class ShellSorter
+{
+    public:
+    DoubleList* list;
+    bool IsSorted=false;
+
+    ShellSorter() {}
+    ShellSorter(DoubleList* base): list(base) {}
+    ~ShellSorter() {};
+
+    void sort();
+}ShellSorter;
+
 #endif
 
 
