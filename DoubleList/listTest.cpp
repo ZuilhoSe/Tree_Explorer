@@ -27,8 +27,8 @@ int main()
     testList.pushFirst(01);
     testList.printList();
 
-    BubbleSorter sorter;
-    new (&sorter) BubbleSorter();
+    SelectionSorter sorter;
+    new (&sorter) SelectionSorter();
     sorter.list = &testList;
     sorter.sort();
     testList.printList();
