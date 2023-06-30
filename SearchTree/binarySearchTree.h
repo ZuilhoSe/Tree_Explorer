@@ -1,6 +1,8 @@
 #ifndef SEARCH_TREE
 #define SEARCH_TREE
 
+#include <fstream>
+
 typedef struct Node
 {
     Node (int iValue): iPayload(iValue) {}

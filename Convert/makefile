@@ -1,13 +1,13 @@
-test: testConvert
+test: testConvert tree1.txt
 	./testConvert
 
-testConvert: convertTreeList.o
+testConvert: convertTreeList.o \
+			../SearchTree/binarySearchTree.o \
+			../DoubleList/doubleLinkedList.o
 	g++ testConvert.cpp convertTreeList.o ../SearchTree/binarySearchTree.o ../DoubleList/doubleLinkedList.o -o testConvert
 
-convertTreeList.o: convertTreeList.h testConvert.cpp tree1.txt \
-		  ../SearchTree/binarySearchTree.o \
-	      ../DoubleList/doubleLinkedList.o
-	g++ convertTreeList.cpp ../SearchTree/binarySearchTree.o ../DoubleList/doubleLinkedList.o -c
+convertTreeList.o: convertTreeList.h testConvert.cpp
+	g++ convertTreeList.cpp -c
 
 clean:
 	rm testConvert

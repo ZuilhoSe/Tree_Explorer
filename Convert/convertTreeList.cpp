@@ -17,7 +17,7 @@ DoubleList convertToList(SearchTree& tree)
 {
     DoubleList list;
 
-    pushLastInOrder(SearchTree.getRoot(), list);
+    pushLastInOrder(tree.getRoot(), list);
 
     return list;
 }
@@ -34,5 +34,5 @@ SearchTree convertToTree(DoubleList& list)
         ptrNode = ptrNode->next;
     }
 
-    return SearchTree;
+    return tree;
 }
