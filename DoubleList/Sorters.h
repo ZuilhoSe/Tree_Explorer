@@ -20,6 +20,22 @@ typedef class BubbleSorter
 
 }BubbleSorter;
 
+typedef class InsertionSorter
+{
+
+    private:
+    public:
+        DoubleList* list;
+        bool IsSorted=false;
+
+        InsertionSorter() {}
+        InsertionSorter(DoubleList* base): list(base) {}
+        ~InsertionSorter() {};
+
+        void sort();
+
+}InsertionSorter;
+
 
 #endif
 

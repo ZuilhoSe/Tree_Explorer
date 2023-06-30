@@ -54,6 +54,89 @@ void BubbleSorter::sort(){
     } while(swapped);
 }
 
+// void InsertionSorter::sort(){
+//     DoubleList* sorted_list = nullptr;
+//     DoubleNode* current = this->list->getFirst();
+//     sorted_list->pushFirst(current->iPayload);
+//     this->list->popFirst();
+//     while (this->list->length() > 0)
+//     {
+//         current = this->list->getFirst();
+//         this->list->popFirst();
+//         insert_sorted(sorted_list, current);
+//     }
+//     {
+//         /* code */
+//     }
+    
+// }
+
+// void insert_sorted(Node** headPtr, Node** tailPtr, Node* newNode ){
+//     //Insert the new node in the correct place in the list
+//     Node *current = *headPtr;
+//     while (current!=nullptr)
+//     {
+//         if(newNode->data<=current->data){
+//             //Insert the new node before the current node
+//             if(current->prev!=nullptr && current->next!=nullptr){
+//                 //The current node is not the first or last node
+//                 current->prev->next=newNode;
+//                 newNode->prev=current->prev;
+//                 newNode->next=current;
+//                 current->prev=newNode;
+//                 return;
+//             }
+//             else if(current->prev==nullptr){
+//                 //The current node is the first node
+//                 newNode->next=current;
+//                 current->prev=newNode;
+//                 *headPtr=newNode;
+//                 return;
+//             }
+//         }
+//         current=current->next;
+//     }
+//     //The new node is the last node
+//     (*tailPtr)->next=newNode;
+//     newNode->prev=*tailPtr;
+//     *tailPtr=newNode;
+// }
+
+
+
+// void Insertion_Sort(Node** headPtr, Node** tailPtr){
+//     Node *SortedHead = nullptr;
+//     Node** SortedHeadPtr = &SortedHead;
+//     Node *SortedTail = nullptr;
+//     Node** SortedTailPtr = &SortedTail;
+
+//     // Insert first node from original list to sorted list
+//     SortedHead = *headPtr;
+//     SortedTail = *headPtr;
+//     *headPtr = (*headPtr)->next;
+//     if(*headPtr != nullptr)
+//         (*headPtr)->prev = nullptr;
+//     SortedHead->next = nullptr;
+//     SortedHead->prev = nullptr;
+
+//     //Process the rest of the nodes
+//     //Remove the head node from the original list and insert it in the sorted list
+//     //into it's correct place until the original list is empty
+//     while (*headPtr != nullptr) { 
+//         Node* current = *headPtr;
+//         *headPtr = (*headPtr)->next; // Remove node from original list
+//         if(*headPtr != nullptr)
+//             (*headPtr)->prev = nullptr;
+//         current->next = nullptr;
+//         current->prev = nullptr;
+//         insert_sorted(SortedHeadPtr, SortedTailPtr, current);
+//     }
+//     *headPtr = SortedHead;
+//     *tailPtr = SortedTail;
+// }
+
+
+
 
 //     void BubbleSort(Node** headRef) 
 //     bool swapped;
