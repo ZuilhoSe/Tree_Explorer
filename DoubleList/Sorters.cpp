@@ -134,3 +134,97 @@ void SelectionSorter::sort(){
     this->list->setFirst(SortedHead);
     this->list->setLast(SortedTail);
 }
+
+void ShellSorter::sort() {
+    int n = this->list->length();
+    int gap = n / 2;
+
+    while (gap >= 1) {
+        DoubleNode* gapNode = this->list->getFirst();
+        DoubleNode* current = gapNode;
+
+        //use a extra pointer with a gap of the first one is needed
+        for (int i = gap; i > 0; i--) {
+            if (gapNode == nullptr) {
+                break;
+            }
+            gapNode = gapNode->next;
+        }
+
+        //sort the list with the gap
+        while (current != nullptr && gapNode != nullptr) {
+            if (current->iPayload > gapNode->iPayload) {
+
+                //current as first element case
+                if (current == this->list->getFirst()) {
+                    this->list->setFirst(gapNode);
+                } else {
+                    current->prev->next = gapNode;
+                }
+
+                //gapNode as last element case
+                if (gapNode == this->list->getLast()) {
+                    this->list->setLast(current);
+                } else {
+                    gapNode->next->prev = current;
+                }
+
+                //when gap=1 case
+                if (current->next == gapNode) {
+                    DoubleNode* tempNext = gapNode->next;
+                    gapNode->next = current;
+                    current->prev = gapNode;
+                    current->next = tempNext;
+
+                    if (tempNext != nullptr) {
+                        tempNext->prev = current;
+                    }
+                } else {
+                    //gap>1 case
+                    DoubleNode* tempPrev = current->prev;
+                    DoubleNode* tempNext = current->next;
+
+                    //Previous and next of the current node are swapped with the gapNode
+                    current->prev = gapNode->prev;
+                    current->next = gapNode->next;
+
+                    //GapNode as first element case
+                    if (gapNode->prev != nullptr) {
+                        gapNode->prev->next = current;
+                    }
+
+                    //GapNode as last element case
+                    if (gapNode->next != nullptr) {
+                        gapNode->next->prev = current;
+                    }
+
+                    //Previous and next of the gapNode are swapped with the current node
+                    gapNode->prev = tempPrev;
+                    gapNode->next = tempNext;
+
+                    //
+                    if (tempPrev != nullptr) {
+                        tempPrev->next = gapNode;
+                    }
+
+                    if (tempNext != nullptr) {
+                        tempNext->prev = gapNode;
+                    }
+                }
+
+                // Update the loop variables after the swap
+                DoubleNode* temp = current;
+                //keep the correct order of the pointer during sort
+                current = gapNode;
+                gapNode = temp;
+            }
+
+            //move the gapNode and current to the next element
+            current = current->next;
+            gapNode = gapNode->next;
+        }
+
+        //update the gap
+        gap = gap / 2;
+    }
+}
