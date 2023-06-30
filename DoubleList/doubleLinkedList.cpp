@@ -65,8 +65,8 @@ int DoubleList::popLast()
 
     this->last = this->last->prev;
     delete this->last->next;
-    this->last->next = nullptr;
-
+        this->last->next = nullptr;
+    
     this->_length--;
 
     return returnValue;
@@ -78,8 +78,8 @@ int DoubleList::popFirst()
 
     this->first = this->first->next;
     delete this->first->prev;
-    this->first->prev = nullptr;
-
+        this->first->prev = nullptr;
+    
     this->_length--;
 
     return returnValue;
@@ -98,3 +98,47 @@ void DoubleList::printList()
 
     return;
 }
+
+
+void DoubleList::remove(DoubleNode* node)
+{
+    if (node->prev) {
+        node->prev->next = node->next;
+    } else {
+        first = node->next;
+    }
+    if (node->next) {
+        node->next->prev = node->prev;
+    } else {
+        last = node->prev;
+    }
+    _length--;
+}
+
+
+void DoubleList::insert_sorted(DoubleNode* node)
+{
+    if (_length == 0) {
+        first = node;
+        last = node;
+    } else if (first->iPayload > node->iPayload) {
+        node->next = first;
+        first->prev = node;
+        first = node;
+    } else {
+        DoubleNode* currNode = first;
+        while (currNode->next && currNode->next->iPayload < node->iPayload) {
+            currNode = currNode->next;
+        }
+        node->next = currNode->next;
+        node->prev = currNode;
+        if (currNode->next) {
+            currNode->next->prev = node;
+        } else {
+            last = node;
+        }
+        currNode->next = node;
+    }
+    _length++;
+}
+
