@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
-#include "../SearchTree/binarySearchTree.h"
-#include "../DoubleList/doubleLinkedList.h"
-#include "../DoubleList/Sorters.h"
+#include "SearchTree/binarySearchTree.h"
+#include "DoubleList/doubleLinkedList.h"
+#include "DoubleList/Sorters.h"
 #include <windows.h>
 
 using namespace std;
@@ -136,7 +136,7 @@ int main()
                         break;
                     case 3:
                         cout << "Convertendo arvore para lista" << endl;
-                        listTree = tree.convertToList(listTree);
+                        //listTree = tree.convertToList(listTree);
 
                         new (&sorterBubble) BubbleSorter();
                     
@@ -147,7 +147,7 @@ int main()
                         break;
                     case 4:
                         cout << "Convertendo arvore para lista" << endl;
-                        listTree = tree.convertToList(listTree);
+                        //listTree = tree.convertToList(listTree);
 
                         new (&sorterSelection) SelectionSorter();
 

@@ -3,7 +3,6 @@
 #include <fstream>
 #include <queue>
 #include "binarySearchTree.h"
-#include "../DoubleList/doubleLinkedList.h"
 using namespace std;
 Node::~Node(){
         delete ptrLeft;
