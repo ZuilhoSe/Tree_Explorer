@@ -3,7 +3,6 @@
 #include <fstream>
 #include <queue>
 #include "binarySearchTree.h"
-#include "../DoubleList/doubleLinkedList.h"
 
 using namespace std;
 Node::~Node(){
@@ -233,25 +232,4 @@ void SearchTree::traverseBFS()
         if (ptrCurrent->ptrRight) queueTree.push(ptrCurrent->ptrRight);
     }
     
-}
-
-void pushLastInOrder(struct Node* ptrNode, DoubleList& list)
-{
-    if (ptrNode!=nullptr)
-    {
-        pushLastInOrder(ptrNode->ptrLeft, list);
-        list.pushLast(ptrNode->iPayload);
-        pushLastInOrder(ptrNode->ptrRight, list);
-    }
-
-    return;
-}
-
-DoubleList SearchTree::convertToList()
-{
-    DoubleList list;
-
-    pushLastInOrder(this->_ptrRoot, list);
-
-    return list;
 }

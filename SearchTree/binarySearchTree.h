@@ -1,8 +1,6 @@
 #ifndef SEARCH_TREE
 #define SEARCH_TREE
 
-#include "../DoubleList/doubleLinkedList.h"
-
 typedef struct Node
 {
     Node (int iValue): iPayload(iValue) {}
@@ -65,8 +63,6 @@ public:
     bool isPerfect(){return isPerfect(_ptrRoot);}
 
     void createFromTxt(std::string sFilename);
-
-    DoubleList convertToList();
 }
 SearchTree;
 
