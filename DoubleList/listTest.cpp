@@ -27,10 +27,11 @@ int main()
     testList.pushFirst(01);
     testList.printList();
 
-    BubbleSorter sorter;
-    new (&sorter) BubbleSorter();
+    InsertionSorter sorter;
+    new (&sorter) InsertionSorter();
     sorter.list = &testList;
     sorter.sort();
     testList.printList();
+
     return 0;
 }
