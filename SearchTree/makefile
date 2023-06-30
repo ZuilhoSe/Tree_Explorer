@@ -9,4 +9,4 @@ binarySearchTree.o: binarySearchTree.cpp binarySearchTree.h
 	g++ binarySearchTree.cpp -c
 
 clean:
-	rm treeTest SearchTree.o
+	rm treeTest binarySearchTree.o
