@@ -5,7 +5,13 @@
 #include "../SearchTree/binarySearchTree.h"
 
 void pushLastInOrder(struct Node* ptrNode, DoubleList& list);
-DoubleList convertToList(SearchTree& tree);
-SearchTree convertToTree(DoubleList& list);
+DoubleList convertToListInOrder(SearchTree& tree);
 
+void pushLastPreOrder(struct Node* ptrNode, DoubleList& list);
+DoubleList convertToListPreOrder(SearchTree& tree);
+
+void pushLastPostOrder(struct Node* ptrNode, DoubleList& list);
+DoubleList convertToListPostOrder(SearchTree& tree);
+
+SearchTree convertToTree(DoubleList& list);
 #endif
