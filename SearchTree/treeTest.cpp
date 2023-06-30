@@ -62,6 +62,8 @@ int main()
     tree_txt3.createFromTxt("tree3.txt");
     tree_txt3.traversePostOrder();
     cout<<endl;
-
+    cout << "Teste Bfs:" << endl;
+    tree_txt3.traverseBFS();
+    cout<<endl;
     return 0;
 }
