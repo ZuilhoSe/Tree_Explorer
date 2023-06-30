@@ -78,7 +78,6 @@ int main()
     new (&shellsorter) ShellSorter();
     shellsorter.list = &testList;
     testList.printList();
-    std::cout<<testList.length()<<std::endl;
     shellsorter.sort();
     testList.printList();
 
