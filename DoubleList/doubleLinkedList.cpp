@@ -98,3 +98,19 @@ void DoubleList::printList()
 
     return;
 }
+
+void DoubleList::insertNode(DoubleNode** headPtr, DoubleNode** tailPtr, DoubleNode* newNode){
+    if (*headPtr == nullptr) 
+    {
+        // The list is currently empty, so the new node becomes the first and last node
+        *headPtr = newNode;
+        *tailPtr = newNode;
+    } 
+    else 
+    {
+        // Insert the new node at the end of the list
+        newNode->prev = *tailPtr;
+        (*tailPtr)->next = newNode;
+        *tailPtr = newNode;  // Update the tail pointer to the new node
+    }
+}

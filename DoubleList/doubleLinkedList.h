@@ -29,7 +29,9 @@ typedef class DoubleList
 
         unsigned int length() {return _length;}
         DoubleNode* getFirst() {return first;}
+        DoubleNode* getLast() {return last;}
         void setFirst(DoubleNode* node) {first = node;}
+        void setLast(DoubleNode* node) {last = node;}
 
         void pushFirst(int);
         void pushLast(int);
@@ -38,6 +40,8 @@ typedef class DoubleList
         int popLast();
 
         void printList();
+
+        void insertNode(DoubleNode**, DoubleNode**, DoubleNode*);
 }
 DoubleList;
 
