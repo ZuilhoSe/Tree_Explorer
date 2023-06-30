@@ -2,13 +2,9 @@
 #define SORTERS
 #include "doubleLinkedList.h"
 
-
-
 typedef class BubbleSorter
 {
-
     private:
-        bool comparison(int a, int b) {return a > b;}
     public:
         DoubleList* list;
         bool IsSorted=false;
@@ -17,11 +13,22 @@ typedef class BubbleSorter
         BubbleSorter(DoubleList* base): list(base) {}
         ~BubbleSorter() {};
 
-        void sort(){}
+        void sort();
+}BubbleSorter;
 
-};
-BubbleSorter;
+typedef class SelectionSorter
+{
+    private:
+    public:
+        DoubleList* list;
+        bool IsSorted=false;
 
+        SelectionSorter() {}
+        SelectionSorter(DoubleList* base): list(base) {}
+        ~SelectionSorter() {};
+
+        void sort();
+}SelectionSorter;
 
 #endif
 
