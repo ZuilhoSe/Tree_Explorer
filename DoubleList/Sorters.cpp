@@ -1,6 +1,75 @@
 #include <iostream>
 #include "doubleLinkedList.h"
 #include "Sorters.h"
+#include <SDL2/SDL.h>
+
+void renderFrame(SDL_Window* window, SDL_Renderer* renderer, DoubleList* list, DoubleNode* ptrCursorNode)
+{
+    DoubleNode* currNode = list->getFirst();
+
+    int iListLength = list->length();
+    int iColumnWidth = SCREEN_WIDTH/iListLength;
+    int iMinColVal = list->getMin();
+    int iMaxColVal = list->getMax();
+
+    int count = 0;
+    while (currNode != nullptr) {
+        int iColumnHeight = (SCREEN_HEIGHT*(100 - COLUMN_MIN_HEIGHT_RATIO))/100 - ((currNode->iPayload - iMinColVal)*(COLUMN_MAX_HEIGHT_RATIO - COLUMN_MIN_HEIGHT_RATIO)*SCREEN_HEIGHT)/((iMaxColVal - iMinColVal)*100);
+
+        SDL_Rect rect = {(SCREEN_WIDTH - (iListLength*iColumnWidth))/2 + count*iColumnWidth,
+                                iColumnHeight,
+                                iColumnWidth,
+                                SCREEN_HEIGHT-iColumnHeight};
+
+        //Different color for the sorter's cursor node
+        if (currNode == ptrCursorNode) {
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+            SDL_RenderFillRect(renderer, &rect);
+            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        }
+        else {
+            SDL_RenderFillRect(renderer, &rect);
+        }
+
+        currNode = currNode->next;
+        count++;
+    }
+
+    SDL_RenderPresent(renderer);
+
+    Uint64 currTime = SDL_GetTicks64();
+    Uint64 lastTime = currTime;
+    //Milliseconds per sorting iteration
+    Uint64 millisPerIter = 1000/IPS;
+
+    while (currTime - lastTime < millisPerIter) {
+        currTime = SDL_GetTicks64();
+    }
+
+    return;
+}
+
+BubbleSorter::BubbleSorter(DoubleList* base, bool hV){
+    this->list = base;
+    this->hasVisualization = hV;
+
+    if (this->hasVisualization)
+    {
+        this->window = SDL_CreateWindow("Sorting", SDL_WINDOWPOS_UNDEFINED,
+                                SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
+                                SCREEN_HEIGHT, 0);
+        if (window == nullptr)
+        {
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create window: %s\n", SDL_GetError());
+        }
+
+        this->renderer = SDL_CreateRenderer(this->window, -1, 0);
+        if (renderer == nullptr)
+        {
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create renderer: %s\n", SDL_GetError());
+        }
+    }
+}
 
 void BubbleSorter::sort(){
     bool swapped;
@@ -49,6 +118,11 @@ void BubbleSorter::sort(){
                 swapped = true;
             }
             ptr1 = ptr1->next;
+
+            if (this->hasVisualization)
+            {
+                renderFrame(this->window, this->renderer, this->list, ptr1);
+            }
         }
 
     } while(swapped);
