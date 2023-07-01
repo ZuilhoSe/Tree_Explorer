@@ -2,7 +2,7 @@
 #include "doubleLinkedList.h"
 #include "Sorters.h"
 
-int main()
+int main(int argc, char** argv)
 {
     DoubleList testList;
     testList.pushLast(5);
@@ -23,14 +23,17 @@ int main()
 
     testList.pushFirst(89);
     std::cout << testList.length() << std::endl;
+
     testList.pushFirst(12);
     testList.pushFirst(01);
+    testList.pushFirst(910);
+    testList.pushFirst(91);
+    testList.pushFirst(9);
+    testList.pushFirst(7);
     testList.printList();
 
     //Insertion test
-    InsertionSorter insertionsorter;
-    new (&insertionsorter) InsertionSorter();
-    insertionsorter.list = &testList;
+    InsertionSorter insertionsorter(&testList, true);
     insertionsorter.sort();
     testList.printList();
 
@@ -39,11 +42,13 @@ int main()
     testList.pushFirst(1);
     testList.pushFirst(27);
     testList.pushFirst(11);
-
+    testList.pushFirst(22);
+    testList.pushFirst(910);
+    testList.pushFirst(91);
+    testList.pushFirst(9);
+    testList.pushFirst(7);
     //Bubble test
-    BubbleSorter bubblesorter;
-    new (&bubblesorter) BubbleSorter();
-    bubblesorter.list = &testList;
+    BubbleSorter bubblesorter(&testList, true);
     bubblesorter.sort();
     testList.printList();
 
@@ -54,9 +59,7 @@ int main()
     testList.pushFirst(511);
 
     //Selection test
-    SelectionSorter selectionsorter;
-    new (&selectionsorter) SelectionSorter();
-    selectionsorter.list = &testList;
+    SelectionSorter selectionsorter(&testList, true);
     selectionsorter.sort();
     testList.printList();
 

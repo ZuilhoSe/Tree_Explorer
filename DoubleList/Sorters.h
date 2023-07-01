@@ -10,7 +10,7 @@
 #define COLUMN_MIN_HEIGHT_RATIO 0
 
 #define FPS 144
-#define IPS 144
+#define IPS 10
 typedef class BubbleSorter
 {
     private:

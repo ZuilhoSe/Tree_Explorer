@@ -5,6 +5,10 @@
 
 void renderFrame(SDL_Window* window, SDL_Renderer* renderer, DoubleList* list, DoubleNode* ptrCursorNode)
 {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
     DoubleNode* currNode = list->getFirst();
 
     int iListLength = list->length();
@@ -193,6 +197,11 @@ void InsertionSorter::sort()
         this->list->insert_sorted(currentNode);
         
         currentNode = nextNode; // Go to next node
+
+        if (this->hasVisualization)
+        {
+            renderFrame(this->window, this->renderer, this->list, currentNode);
+        }
     }
     
     this->isSorted = true;
@@ -216,7 +225,7 @@ void SelectionSorter::sort(){
         
         while(current!=nullptr)
         {
-            if(current->iPayload<min)
+        if(current->iPayload<min)
             {
                 min = current->iPayload;
                 minNode = current;
