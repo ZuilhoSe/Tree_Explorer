@@ -1,28 +1,14 @@
 #ifndef SORTERS
 #define SORTERS
 #include "doubleLinkedList.h"
-#include <SDL2/SDL.h>
 
-#define SCREEN_WIDTH 1000
-#define SCREEN_HEIGHT 600
-
-#define COLUMN_MAX_HEIGHT_RATIO 100
-#define COLUMN_MIN_HEIGHT_RATIO 0
-
-#define FPS 144
-#define IPS 10
 typedef class BubbleSorter
 {
-    private:
+    public:
         DoubleList* list;
 
-        SDL_Window* window = nullptr;
-        SDL_Renderer* renderer = nullptr;
-
-        bool hasVisualization;
-    public:
-        BubbleSorter(DoubleList* base, bool hV);
-        ~BubbleSorter();
+        BubbleSorter() {}
+        BubbleSorter(DoubleList* base): list(base) {}
 
         bool isSorted=false;
 
@@ -31,16 +17,11 @@ typedef class BubbleSorter
 
 typedef class InsertionSorter
 {
-    private:
+    public:
         DoubleList* list;
 
-        SDL_Window* window = nullptr;
-        SDL_Renderer* renderer = nullptr;
-
-        bool hasVisualization;
-    public:
-        InsertionSorter(DoubleList* base, bool hV);
-        ~InsertionSorter();
+        InsertionSorter() {}
+        InsertionSorter(DoubleList* base): list(base) {}
 
         bool isSorted=false;
 
@@ -50,16 +31,11 @@ typedef class InsertionSorter
 
 typedef class SelectionSorter
 {
-    private:
-        DoubleList* list;
-
-        SDL_Window* window = nullptr;
-        SDL_Renderer* renderer = nullptr;
-
-        bool hasVisualization;
     public:
-        SelectionSorter(DoubleList* base, bool hV);
-        ~SelectionSorter();
+        DoubleList* list;  
+
+        SelectionSorter() {}
+        SelectionSorter(DoubleList* base): list(base) {}
 
         bool IsSorted=false;
 
@@ -69,14 +45,14 @@ typedef class SelectionSorter
 typedef class ShellSorter
 {
     public:
-    DoubleList* list;
-    bool IsSorted=false;
+        DoubleList* list;
 
-    ShellSorter() {}
-    ShellSorter(DoubleList* base): list(base) {}
-    ~ShellSorter() {};
+        ShellSorter() {}
+        ShellSorter(DoubleList* base): list(base) {}
 
-    void sort();
+        bool IsSorted=false;
+
+        void sort();
 }ShellSorter;
 
 #endif

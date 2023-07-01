@@ -8,7 +8,6 @@
 #include <chrono>
 #include <sstream>
 #include <limits>
-#include <SDL2/SDL.h>
 
 using namespace std;
 
@@ -90,17 +89,11 @@ int main(int argc, char** argv)
     bool keepRunning = true;
     Node* ptrNode;
     DoubleList listTree;
-    //BubbleSorter sorterBubble;
-    //SelectionSorter sorterSelection;
-    //InsertionSorter sorterInsertion;
+    BubbleSorter sorterBubble;
+    SelectionSorter sorterSelection;
+    InsertionSorter sorterInsertion;
+    ShellSorter sorterShell;
     string sInput;
-    bool bInvalidOptFlag=true;
-
-    if (SDL_InitSubSystem(SDL_INIT_VIDEO) < 0)
-    {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize the SDL video sub system: %s\n", SDL_GetError());
-        return 1;
-    }
 
     while(keepRunning){
     system("cls");
@@ -268,56 +261,124 @@ int main(int argc, char** argv)
                     case 3:{
                     //Bubble Sort
                         cout << "Convertendo arvore para lista" << endl;
-                        DoubleList listTree = convertToListPostOrder(tree);
 
-                        BubbleSorter sorterBubble(&listTree, true);
+                        auto startTime = std::chrono::high_resolution_clock::now();
+                        DoubleList listTree = convertToListPostOrder(tree);
+                        auto endTime = std::chrono::high_resolution_clock::now();
+                        auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+
+
+                        BubbleSorter sorterBubble(&listTree);
 
                         cout<<"Lista desordenada: "<<endl;
                         listTree.printList();
 
+                        startTime = std::chrono::high_resolution_clock::now();
                         sorterBubble.sort();
+                        endTime = std::chrono::high_resolution_clock::now();
+                        auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
                         cout << "Lista Ordenada:" << endl;
                         listTree.printList();
-                        //Espera de 4 segundos
-                        Sleep(4000);
+                        cout<<endl;
+                        cout<<"Tempo da operacao completa "<<duration1+duration2<<" microsegundos."<<endl;
+                        cout<<"Tempo da operacao de conversao "<<duration1<<" microsegundos."<<endl;
+                        cout<<"Tempo da operacao de ordenacao "<<duration2<<" microsegundos."<<endl;
+                        cout<<"Pressione ENTER para continuar."<<endl;
+                        fflush(stdin);
+                        getchar();
+
                         break;
                     }
                     case 4:{
                     //Selection Sort
                         cout << "Convertendo arvore para lista" << endl;
+                        auto startTime = std::chrono::high_resolution_clock::now();
                         listTree = convertToListPostOrder(tree);
+                        auto endTime = std::chrono::high_resolution_clock::now();
+                        auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
 
-                        SelectionSorter sorterSelection(&listTree, true);
+                        SelectionSorter sorterSelection(&listTree);
                         
                         cout<<"Lista desordenada: "<<endl;
                         listTree.printList();
                         
+                        startTime = std::chrono::high_resolution_clock::now();
                         sorterSelection.sort();
+                        endTime = std::chrono::high_resolution_clock::now();
+                        auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
                         cout << "Lista Ordenada:" << endl;
                         listTree.printList();
-                        //Espera de 4 segundos
-                        Sleep(4000);
+                        cout<<endl;
+                        cout<<"Tempo da operacao completa "<<duration1+duration2<<" microsegundos."<<endl;
+                        cout<<"Tempo da operacao de conversao "<<duration1<<" microsegundos."<<endl;
+                        cout<<"Tempo da operacao de ordenacao "<<duration2<<" microsegundos."<<endl;
+                        cout<<"Pressione ENTER para continuar."<<endl;
+                        fflush(stdin);
+                        getchar();
+
+
                         break;
                     }
                     case 5:{
                     //Insertion Sort
                         cout << "Convertendo arvore para lista" << endl;
+                        
+                        auto startTime = std::chrono::high_resolution_clock::now();
                         listTree = convertToListPostOrder(tree);
+                        auto endTime = std::chrono::high_resolution_clock::now();
+                        auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
 
-                        InsertionSorter sorterInsertion(&listTree, true);
+                        InsertionSorter sorterInsertion(&listTree);
 
                         cout<<"Lista desordenada: "<<endl;
                         listTree.printList();
 
+                        startTime = std::chrono::high_resolution_clock::now();
                         sorterInsertion.sort();
+                        endTime = std::chrono::high_resolution_clock::now();
+                        auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
                         cout << "Lista Ordenada:" << endl;
                         listTree.printList();
-                        //Espera de 4 segundos
-                        Sleep(4000);
+                        cout<<endl;
+
+                        cout<<"Tempo da operacao completa "<<duration1+duration2<<" microsegundos."<<endl;
+                        cout<<"Tempo da operacao de conversao "<<duration1<<" microsegundos."<<endl;
+                        cout<<"Tempo da operacao de ordenacao "<<duration2<<" microsegundos."<<endl;
+                        cout<<"Pressione ENTER para continuar."<<endl;
+                        fflush(stdin);
+                        getchar();
                         break;
                     }
-                    case 6: 
+                    case 6: {
+                        //Shell Sort
+                        cout << "Convertendo arvore para lista" << endl;
+
+                        auto startTime = std::chrono::high_resolution_clock::now();
+                        listTree = convertToListPostOrder(tree);
+                        auto endTime = std::chrono::high_resolution_clock::now();
+                        auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+
+                        ShellSorter sorterShell(&listTree);
+
+                        cout<<"Lista desordenada: "<<endl;
+                        listTree.printList();
+
+                        startTime = std::chrono::high_resolution_clock::now();
+                        sorterShell.sort();
+                        endTime = std::chrono::high_resolution_clock::now();
+                        auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+                        cout << "Lista Ordenada:" << endl;
+                        listTree.printList();
+                        cout<<endl;
+
+                        cout<<"Tempo da operacao completa "<<duration1+duration2<<" microsegundos."<<endl;
+                        cout<<"Tempo da operacao de conversao "<<duration1<<" microsegundos."<<endl;
+                        cout<<"Tempo da operacao de ordenacao "<<duration2<<" microsegundos."<<endl;
+                        cout<<"Pressione ENTER para continuar."<<endl;
+                        fflush(stdin);
+                        getchar();
                         break;
+                    }
                     case 7:
                     //Voltar
                         //clean buffer to avoid nasty bugs
@@ -476,8 +537,6 @@ int main(int argc, char** argv)
                 break;
         }
     }
-
-    SDL_Quit();
     
     return 0;
 }
