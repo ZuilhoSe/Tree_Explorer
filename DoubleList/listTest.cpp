@@ -40,7 +40,7 @@ int main(int argc, char** argv)
 
     //Insertion test
     {
-        InsertionSorter insertionsorter(&testList, true);
+        InsertionSorter insertionsorter(&testList);
         insertionsorter.sort();
         testList.printList();
     }
@@ -56,7 +56,7 @@ int main(int argc, char** argv)
     testList.pushFirst(9);
     testList.pushFirst(7);
     //Bubble test
-    BubbleSorter bubblesorter(&testList, true);
+    BubbleSorter bubblesorter(&testList);
     bubblesorter.sort();
     testList.printList();
 
@@ -67,7 +67,7 @@ int main(int argc, char** argv)
     testList.pushFirst(511);
 
     //Selection test
-    SelectionSorter selectionsorter(&testList, true);
+    SelectionSorter selectionsorter(&testList);
     selectionsorter.sort();
     testList.printList();
 
