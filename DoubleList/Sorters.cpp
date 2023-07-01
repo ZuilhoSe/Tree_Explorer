@@ -71,6 +71,49 @@ BubbleSorter::BubbleSorter(DoubleList* base, bool hV){
     }
 }
 
+SelectionSorter::SelectionSorter(DoubleList* base, bool hV){
+    this->list = base;
+    this->hasVisualization = hV;
+
+    if (this->hasVisualization)
+    {
+        this->window = SDL_CreateWindow("Sorting", SDL_WINDOWPOS_UNDEFINED,
+                                SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
+                                SCREEN_HEIGHT, 0);
+        if (window == nullptr)
+        {
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create window: %s\n", SDL_GetError());
+        }
+
+        this->renderer = SDL_CreateRenderer(this->window, -1, 0);
+        if (renderer == nullptr)
+        {
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create renderer: %s\n", SDL_GetError());
+        }
+    }
+}
+
+InsertionSorter::InsertionSorter(DoubleList* base, bool hV){
+    this->list = base;
+    this->hasVisualization = hV;
+
+    if (this->hasVisualization)
+    {
+        this->window = SDL_CreateWindow("Sorting", SDL_WINDOWPOS_UNDEFINED,
+                                SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
+                                SCREEN_HEIGHT, 0);
+        if (window == nullptr)
+        {
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create window: %s\n", SDL_GetError());
+        }
+
+        this->renderer = SDL_CreateRenderer(this->window, -1, 0);
+        if (renderer == nullptr)
+        {
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create renderer: %s\n", SDL_GetError());
+        }
+    }
+}
 void BubbleSorter::sort(){
     bool swapped;
     DoubleNode* ptr1;
@@ -132,7 +175,7 @@ void InsertionSorter::sort()
 {
     if (this->list->length() <= 1) {
         // List is empty or has only one node, so it's already sorted
-        this->IsSorted = true;
+        this->isSorted = true;
         return;
     }
     
@@ -152,7 +195,7 @@ void InsertionSorter::sort()
         currentNode = nextNode; // Go to next node
     }
     
-    this->IsSorted = true;
+    this->isSorted = true;
 }
 
 void SelectionSorter::sort(){
