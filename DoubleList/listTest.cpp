@@ -24,18 +24,26 @@ int main(int argc, char** argv)
     testList.pushFirst(89);
     std::cout << testList.length() << std::endl;
 
-    testList.pushFirst(12);
-    testList.pushFirst(01);
-    testList.pushFirst(910);
-    testList.pushFirst(91);
+    testList.pushFirst(22);
+    testList.pushFirst(1);
+    testList.pushFirst(41);
+    testList.pushFirst(11);
+    testList.pushFirst(22);
+    testList.pushFirst(16);
+    testList.pushFirst(61);
     testList.pushFirst(9);
+    testList.pushFirst(21);
+    testList.pushFirst(22);
+    testList.pushFirst(43);
     testList.pushFirst(7);
     testList.printList();
 
     //Insertion test
-    InsertionSorter insertionsorter(&testList, true);
-    insertionsorter.sort();
-    testList.printList();
+    {
+        InsertionSorter insertionsorter(&testList, true);
+        insertionsorter.sort();
+        testList.printList();
+    }
 
     testList.pushFirst(17);
     testList.pushFirst(13);
