@@ -72,6 +72,11 @@ void printWorkInfo()
     cout << "   - Osmar" << endl;
     cout << "   - Vini" << endl;
     cout << "   - Zuzu" << endl;
+
+    cout<<endl;
+    cout<<"Pressione ENTER para voltar."<<endl;
+    fflush(stdin);
+    getchar();
 }
 
 int main()
@@ -93,7 +98,8 @@ int main()
     cout << "Para comecar, e preciso criar uma arvore:" << endl;
     cout << "   1 - contruir Arvore a partir de arquivo" << endl;
     cout << "   2 - contruir Arvore a partir de entrada do usuario" << endl;
-    cout << "   3 - Sair" << endl;
+    cout << "   3 - informacoes sobre o trabalho" << endl;
+    cout << "   4 - Sair" << endl;
 
     std::getline(std::cin, sInput);
 
@@ -153,6 +159,9 @@ int main()
             break;
         }
         case 3:
+            printWorkInfo();
+            break;
+        case 4:
             return 0;
             break;
         default:
@@ -202,7 +211,7 @@ int main()
                     //Inserir Elemento
                         cout<<endl;
                         cout << "Digite um numero a ser inserido: " << endl;
-                        cout << "Caso digite meltiplos numeros apenas o primeiro sera inserido." << endl;
+                        cout << "Caso digite multiplos numeros apenas o primeiro sera inserido." << endl;
                         cout<<endl;
                         cin >> iOption;
 
@@ -434,11 +443,9 @@ int main()
                 }
 
                 break;
-            case 3:
+            case 3:{
                 printWorkInfo();
-                //Espera de 4 segundos
-                Sleep(4000);
-                break;
+                break;}
             case 4:
             //Sair
                 keepRunning = false;
