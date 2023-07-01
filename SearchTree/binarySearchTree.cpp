@@ -76,7 +76,10 @@ void SearchTree::transplantNodes(struct Node* ptrOld, struct Node* ptrNew)
 
 void SearchTree::deleteNode(struct Node* ptrNode)
 {
-    if (ptrNode == nullptr) return;
+    if (ptrNode == nullptr){ 
+        cout<<"Elemento nao encontrado na arvore."<<endl;
+        return;
+    }
     if (ptrNode->ptrLeft == nullptr)
         transplantNodes(ptrNode, ptrNode->ptrRight);
     else if (ptrNode->ptrRight == nullptr)
@@ -222,8 +225,11 @@ void SearchTree::buildTreeFromInput()
     int number;
     auto duration = 0;
 
-    cout << "Digite os numeros (# para parar), o primeiro numero sera a raiz: " << endl;
+    cout<<endl;
+    cout << "Digite os numeros (# separado com espaco para parar), o primeiro numero sera a raiz: " << endl;
+    cout << "Exemplo de entrada: 1 2 3 4 5 #"<<endl;
 
+    cout<<endl;
     while (cin >> input) {
         if (input == "#") {
             break;
