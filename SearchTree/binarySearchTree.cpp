@@ -1,63 +1,15 @@
 #include <iostream>
 #include <cmath>
+#include <fstream>
+#include "binarySearchTree.h"
 using namespace std;
-
-struct Node
-{
-    Node (int iValue): iPayload(iValue) {}
-    int iPayload;
-    struct Node* ptrLeft = nullptr;
-    struct Node* ptrRight = nullptr;
-    struct Node* ptrParent;
-    ~Node(){
+Node::~Node(){
         delete ptrLeft;
         delete ptrRight;
         ptrParent = nullptr;
         ptrLeft = nullptr;
         ptrRight = nullptr;
-    }
-};
-class SearchTree
-{
-private:
-    struct Node* _ptrRoot = nullptr;
-    void insertNode(struct Node* node, int iData);
-    struct Node* searchNode(struct Node* node, int iData);
-    void traversePreOrder(struct Node* ptrNode);
-    void traversePostOrder(struct Node* ptrNode);
-    void traverseInOrder(struct Node* ptrNode);
-    int getHeight(struct Node* node);
-    struct Node* minimum(struct Node *ptrNode);
-    struct Node* maximum(struct Node* ptrNode);
-    void transplantNodes(struct Node *ptrNode0, struct Node* ptrNode1);
-    int getSize(struct Node* ptrNode);
-    bool isComplete(struct Node* ptrNode);
-    bool isPerfect(struct Node* ptrNode);
-
-public:
-    SearchTree();
-    ~SearchTree();
-    void insertNode(int iData){insertNode(_ptrRoot, iData);}
-    struct Node* searchNode(int iData){return searchNode(_ptrRoot, iData);}
-    struct Node* minimum(){return minimum(_ptrRoot);}
-    struct Node* maximun(){return maximum(_ptrRoot);}
-    void traversePreOrder(){traversePreOrder(_ptrRoot);}
-    void traversePostOrder(){traversePostOrder(_ptrRoot);}
-    void traverseInOrder(){traverseInOrder(_ptrRoot);}
-    int getHeight(){return getHeight(_ptrRoot);}
-    void deleteSearchTree();
-    void deleteNode(struct Node* ptrNode);
-    int getSize(){return getSize(_ptrRoot);}
-    bool isComplete(){return isComplete(_ptrRoot);}
-    bool isPerfect(){return isPerfect(_ptrRoot);}
-
-};
-
-SearchTree::SearchTree()
-{
 }
-
-
 
 void SearchTree::insertNode(struct Node* node, int iData)
 {
@@ -177,6 +129,7 @@ void SearchTree::traverseInOrder(struct Node* ptrNode)
         traverseInOrder(ptrNode->ptrRight);
     }
 }
+
 int SearchTree::getHeight(struct Node* ptrNode)
 {
 
@@ -203,4 +156,106 @@ bool SearchTree::isComplete(struct Node* ptrNode)
 bool SearchTree::isPerfect(struct Node* ptrNode)
 {
     return getSize(_ptrRoot) == pow(2,getHeight(_ptrRoot))-1;
+}
+
+bool readNextToken(int& token, ifstream& fin, bool& isNumber) 
+{
+    char nextChar;
+    fin >> nextChar;
+
+    // Verifica se o próximo caractere é um número ou não
+    if (isdigit(nextChar)) 
+    {
+        fin.unget(); 
+        fin >> token;
+        isNumber = true;
+    } 
+    else 
+    {
+        isNumber = false;
+    }
+
+    // Verifica se ocorreu um erro ao ler o token
+    if (fin.fail()) 
+    {
+        return false;
+    }
+
+    return true;
+}
+
+void SearchTree::readBinaryTree(Node*& ptrNode, ifstream& fin) 
+{
+    int token;
+    bool isNumber;
+    
+    while (readNextToken(token, fin, isNumber)) 
+    {
+        if (isNumber) 
+        {
+            insertNode(ptrNode, token);
+        }
+    }
+}
+
+void SearchTree::createFromTxt(string sFilename) 
+{
+    ifstream fin(sFilename);
+  
+    if (!fin) 
+    {
+        cout << "Erro ao abrir o arquivo." << endl;
+        return;
+    }
+    
+    readBinaryTree(_ptrRoot, fin);
+    fin.close();
+}
+
+void SearchTree::buildTreeFromInput()
+{
+    string input;
+    int number;
+    
+    cout << "Digite os numeros (# para parar), o primeiro numero sera a raiz: " << endl;
+
+    while (cin >> input) {
+        if (input == "#") {
+            break;
+        } else if (isdigit(input[0])) {
+            number = stoi(input);
+            insertNode(number);
+        } else {
+            cout << "Entrada invalida. Digite novamente:" << endl;
+        }
+    }
+}
+
+void SearchTree::traverseBFS()
+{
+    if (!_ptrRoot) return;
+
+    treeQueue* head = new treeQueue(_ptrRoot);
+    treeQueue* tail = head;
+
+    while(head)
+    {
+        Node* ptrCurrent = head->ptrNode;
+        cout << ptrCurrent->iPayload << ' ';
+        if (ptrCurrent->ptrLeft) 
+        {
+            tail->ptrNext = new treeQueue(ptrCurrent->ptrLeft);
+            tail = tail->ptrNext;
+        }
+        if (ptrCurrent->ptrRight) 
+        {
+            tail->ptrNext = new treeQueue(ptrCurrent->ptrRight);
+            tail = tail->ptrNext;
+        }
+        treeQueue* ptrTemp = head;
+        head = head->ptrNext;
+        delete ptrTemp;
+        
+    }
+    
 }
