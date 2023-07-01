@@ -293,7 +293,7 @@ int main(int argc, char** argv)
                     //Selection Sort
                         cout << "Convertendo arvore para lista" << endl;
                         auto startTime = std::chrono::high_resolution_clock::now();
-                        listTree = convertToListPostOrder(tree);
+                        DoubleList listTree = convertToListPostOrder(tree);
                         auto endTime = std::chrono::high_resolution_clock::now();
                         auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
 
@@ -324,7 +324,7 @@ int main(int argc, char** argv)
                         cout << "Convertendo arvore para lista" << endl;
                         
                         auto startTime = std::chrono::high_resolution_clock::now();
-                        listTree = convertToListPostOrder(tree);
+                        DoubleList listTree = convertToListPostOrder(tree);
                         auto endTime = std::chrono::high_resolution_clock::now();
                         auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
 
@@ -354,7 +354,7 @@ int main(int argc, char** argv)
                         cout << "Convertendo arvore para lista" << endl;
 
                         auto startTime = std::chrono::high_resolution_clock::now();
-                        listTree = convertToListPostOrder(tree);
+                        DoubleList listTree = convertToListPostOrder(tree);
                         auto endTime = std::chrono::high_resolution_clock::now();
                         auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
 
@@ -390,7 +390,7 @@ int main(int argc, char** argv)
                     default:
                         cout << "Opcao invalida!" << endl;
                         //Espera de 4 segundos
-                        Sleep(4000);
+                        Sleep(550);
                         break;
                 }
 
@@ -517,7 +517,7 @@ int main(int argc, char** argv)
                     default:{
                         cout << "Opcao invalida!" << endl;
                         //Espera de 4 segundos
-                        Sleep(4000);
+                        Sleep(550);
                         break;
                     }
                 }
@@ -533,7 +533,7 @@ int main(int argc, char** argv)
             default:
                 cout << "Opcao invalida!" << endl;
                 //Espera de 4 segundos
-                Sleep(4000);
+                Sleep(550);
                 break;
         }
     }
