@@ -22,7 +22,7 @@ typedef class BubbleSorter
         bool hasVisualization;
     public:
         BubbleSorter(DoubleList* base, bool hV);
-        ~BubbleSorter() {};
+        ~BubbleSorter();
 
         bool isSorted=false;
 
@@ -40,7 +40,7 @@ typedef class InsertionSorter
         bool hasVisualization;
     public:
         InsertionSorter(DoubleList* base, bool hV);
-        ~InsertionSorter() {};
+        ~InsertionSorter();
 
         bool isSorted=false;
 
@@ -59,7 +59,7 @@ typedef class SelectionSorter
         bool hasVisualization;
     public:
         SelectionSorter(DoubleList* base, bool hV);
-        ~SelectionSorter() {};
+        ~SelectionSorter();
 
         bool IsSorted=false;
 

@@ -82,7 +82,7 @@ void printWorkInfo()
     getchar();
 }
 
-int main()
+int main(int argc, char** argv)
 {
     int iOption;
     SearchTree tree;

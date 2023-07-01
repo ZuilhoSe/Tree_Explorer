@@ -75,6 +75,14 @@ BubbleSorter::BubbleSorter(DoubleList* base, bool hV){
     }
 }
 
+BubbleSorter::~BubbleSorter(){
+    if (this->hasVisualization)
+    {
+        SDL_DestroyRenderer(this->renderer);
+        SDL_DestroyWindow(this->window);
+    }
+}
+
 SelectionSorter::SelectionSorter(DoubleList* base, bool hV){
     this->list = base;
     this->hasVisualization = hV;
@@ -94,6 +102,14 @@ SelectionSorter::SelectionSorter(DoubleList* base, bool hV){
         {
             SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create renderer: %s\n", SDL_GetError());
         }
+    }
+}
+
+SelectionSorter::~SelectionSorter(){
+    if (this->hasVisualization)
+    {
+        SDL_DestroyRenderer(this->renderer);
+        SDL_DestroyWindow(this->window);
     }
 }
 
@@ -118,6 +134,15 @@ InsertionSorter::InsertionSorter(DoubleList* base, bool hV){
         }
     }
 }
+
+InsertionSorter::~InsertionSorter(){
+    if (this->hasVisualization)
+    {
+        SDL_DestroyRenderer(this->renderer);
+        SDL_DestroyWindow(this->window);
+    }
+}
+
 void BubbleSorter::sort(){
     bool swapped;
     DoubleNode* ptr1;
