@@ -59,6 +59,40 @@ void DoubleList::pushFirst(int iPayload)
     return;
 }
 
+unsigned int DoubleList::getMax()
+{
+    DoubleNode* ptrNode = this->first;
+    unsigned int iMax = 0;
+
+    while (ptrNode)
+    {
+        if (ptrNode->iPayload > iMax)
+        {
+            iMax = ptrNode->iPayload;
+        }
+        ptrNode = ptrNode->next;
+    }
+
+    return iMax;
+}
+
+unsigned int DoubleList::getMin()
+{
+    DoubleNode* ptrNode = this->first;
+    unsigned int iMin = 0;
+
+    while (ptrNode)
+    {
+        if (ptrNode->iPayload < iMin)
+        {
+            iMin = ptrNode->iPayload;
+        }
+        ptrNode = ptrNode->next;
+    }
+
+    return iMin;
+}
+
 int DoubleList::popLast()
 {
     int returnValue = this->last->iPayload;

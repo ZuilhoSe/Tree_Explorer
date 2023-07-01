@@ -8,6 +8,7 @@
 #include <chrono>
 #include <sstream>
 #include <limits>
+#include <SDL2/SDL.h>
 
 using namespace std;
 
@@ -89,11 +90,17 @@ int main()
     bool keepRunning = true;
     Node* ptrNode;
     DoubleList listTree;
-    BubbleSorter sorterBubble;
-    SelectionSorter sorterSelection;
-    InsertionSorter sorterInsertion;
+    //BubbleSorter sorterBubble;
+    //SelectionSorter sorterSelection;
+    //InsertionSorter sorterInsertion;
     string sInput;
     bool bInvalidOptFlag=true;
+
+    if (SDL_InitSubSystem(SDL_INIT_VIDEO) < 0)
+    {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize the SDL video sub system: %s\n", SDL_GetError());
+        return 1;
+    }
 
     while(keepRunning){
     system("cls");
@@ -261,13 +268,13 @@ int main()
                     case 3:{
                     //Bubble Sort
                         cout << "Convertendo arvore para lista" << endl;
-                        listTree = convertToListPostOrder(tree);
+                        DoubleList listTree = convertToListPostOrder(tree);
 
-                        new (&sorterBubble) BubbleSorter();
+                        BubbleSorter sorterBubble(&listTree, true);
 
                         cout<<"Lista desordenada: "<<endl;
                         listTree.printList();
-                        sorterBubble.list = &listTree;
+
                         sorterBubble.sort();
                         cout << "Lista Ordenada:" << endl;
                         listTree.printList();
@@ -280,12 +287,11 @@ int main()
                         cout << "Convertendo arvore para lista" << endl;
                         listTree = convertToListPostOrder(tree);
 
-                        new (&sorterSelection) SelectionSorter();
+                        SelectionSorter sorterSelection(&listTree, true);
                         
                         cout<<"Lista desordenada: "<<endl;
                         listTree.printList();
                         
-                        sorterSelection.list = &listTree;
                         sorterSelection.sort();
                         cout << "Lista Ordenada:" << endl;
                         listTree.printList();
@@ -298,11 +304,11 @@ int main()
                         cout << "Convertendo arvore para lista" << endl;
                         listTree = convertToListPostOrder(tree);
 
-                        new (&sorterInsertion) InsertionSorter();
+                        InsertionSorter sorterInsertion(&listTree, true);
 
                         cout<<"Lista desordenada: "<<endl;
                         listTree.printList();
-                        sorterInsertion.list = &listTree;
+
                         sorterInsertion.sort();
                         cout << "Lista Ordenada:" << endl;
                         listTree.printList();
@@ -470,6 +476,8 @@ int main()
                 break;
         }
     }
+
+    SDL_Quit();
     
     return 0;
 }

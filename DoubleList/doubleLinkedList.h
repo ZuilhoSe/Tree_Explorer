@@ -18,20 +18,24 @@ typedef class DoubleList
     private:
         DoubleNode* first = nullptr;
         DoubleNode* last = nullptr;
+
         unsigned int _length = 0;
 
     public:
         DoubleList() {}
         DoubleList(DoubleNode* base): first(base), last(base), _length(1) {}
 
-
         ~DoubleList();
 
         unsigned int length() {return _length;}
+
         DoubleNode* getFirst() {return first;}
         DoubleNode* getLast() {return last;}
         void setFirst(DoubleNode* node) {first = node;}
         void setLast(DoubleNode* node) {last = node;}
+
+        unsigned int getMax();
+        unsigned int getMin();
 
         void pushFirst(int);
         void pushLast(int);
