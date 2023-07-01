@@ -29,6 +29,7 @@ void printMainMenu()
     cout << "2 - Informacoes sobre a Arvore" << endl;
     cout << "3 - Informacoes sobre o trabalho" << endl;
     cout << "4 - Sair" << endl;
+    cout<<endl;
 }
 
 void printInfoMenu()
@@ -44,6 +45,7 @@ void printInfoMenu()
     cout << "6 - Imprimir Arvore" << endl;
     cout << "7 - Voltar" << endl;
     cout << "8 - Sair" << endl;
+    cout<<endl;
 }   
 
 void printManipulationMenu()
@@ -59,6 +61,7 @@ void printManipulationMenu()
     cout << "6 - Converter para lista e ordernar: ShellSort" << endl;
     cout << "7 - Voltar" << endl;
     cout << "8 - Sair" << endl;
+    cout<<endl;
 }
 
 void printWorkInfo()
@@ -96,10 +99,10 @@ int main()
     system("cls");
     printHeader();
     cout << "Para comecar, e preciso criar uma arvore:" << endl;
-    cout << "   1 - contruir Arvore a partir de arquivo" << endl;
-    cout << "   2 - contruir Arvore a partir de entrada do usuario" << endl;
-    cout << "   3 - informacoes sobre o trabalho" << endl;
-    cout << "   4 - Sair" << endl;
+    cout << "1 - contruir Arvore a partir de arquivo" << endl;
+    cout << "2 - contruir Arvore a partir de entrada do usuario" << endl;
+    cout << "3 - informacoes sobre o trabalho" << endl;
+    cout << "4 - Sair" << endl;
 
     cout<<endl;
     std::getline(std::cin, sInput);
@@ -311,6 +314,8 @@ int main()
                         break;
                     case 7:
                     //Voltar
+                        //clean buffer to avoid nasty bugs
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         break;
                     case 8:
                         keepRunning = false;
@@ -364,6 +369,7 @@ int main()
                         break;
                     }
                     case 3:{
+                        cout<<endl;
                         cout << "Digite o numero a ser buscado: " << endl;
                         cout<<endl;
                         cin >> iOption;
@@ -433,6 +439,8 @@ int main()
                         break;
                     }
                     case 7:{
+                        //clean buffer to avoid nasty bugs
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         break;
                     }
                     case 8:{

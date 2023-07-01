@@ -77,7 +77,7 @@ void SearchTree::transplantNodes(struct Node* ptrOld, struct Node* ptrNew)
 void SearchTree::deleteNode(struct Node* ptrNode)
 {
     if (ptrNode == nullptr){ 
-        cout<<"Elemento nao encontrado na arvore"<<endl;
+        cout<<"Elemento nao encontrado na arvore."<<endl;
         return;
     }
     if (ptrNode->ptrLeft == nullptr)
