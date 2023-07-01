@@ -5,6 +5,10 @@
 #include "DoubleList/Sorters.h"
 #include "Convert/convertTreeList.h"
 #include <windows.h>
+#include <chrono>
+#include <sstream>
+#include <limits>
+
 
 using namespace std;
 
@@ -81,41 +85,108 @@ int main()
     BubbleSorter sorterBubble;
     SelectionSorter sorterSelection;
     InsertionSorter sorterInsertion;
+    string sInput;
 
     system("cls");
     printHeader();
+    while(keepRunning){
     cout << "Para comecar, e preciso criar uma arvore:" << endl;
     cout << "   1 - contruir Arvore a partir de arquivo" << endl;
     cout << "   2 - contruir Arvore a partir de entrada do usuario" << endl;
+    cout << "   3 - Sair" << endl;
 
-    cin >> iOption;
+    std::getline(std::cin, sInput);
+
+    //Deals with invalid input (non-integer)
+    std::istringstream iss(sInput);
+        if (!(iss >> iOption)) {
+            //0.35 seconds delay
+            Sleep(350);
+            
+            cout<<endl;
+            std::cout << "Opcao invalida! Tente novamente." << std::endl;
+            
+            //0.35 seconds delay
+            Sleep(350);
+            
+            cout<<endl;
+            continue;
+        }
+    
 
     switch (iOption)
     {
-        case 1:
-            cout << "Digite o caminho do arquivo do arquivo: " << endl;
+        case 1:{
+            cout << "Digite o caminho do arquivo: " << endl;
             cin >> sFilename;
-            tree.createFromTxt(sFilename);
+            
+            auto startTime = std::chrono::high_resolution_clock::now();
+            bool created=tree.createFromTxt(sFilename);
+            auto endTime = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+            if (!created)
+            {
+                cout<<"Tempo da operacao "<<duration<<" microsegundos."<<endl;
+                cout<<"Retornando as opcoes"<<endl;
+                cout<<endl;
+                //0.85 seconds delay
+                Sleep(850);
+            }
+            else{
+                cout<<endl;
+                std::cout << "Arvore criada com sucesso em " << duration << " microsegundos!" << std::endl;
+                cout<<"Pressione ENTER para continuar."<<endl;
+                fflush(stdin);
+                getchar();
+                keepRunning = false;
+            }
             break;
-        case 2:
+        }
+        case 2:{
             tree.buildTreeFromInput();
+            cout<<endl;
+            cout<<"Arvore criada com sucesso!"<<endl;
+            cout<<"Pressione ENTER para continuar."<<endl;
+            fflush(stdin);
+            getchar();
+            keepRunning = false;
             break;
-        default:
-            cout << "Opção Invalida! E necessario ter uma arvore! Execute o aplicativo novamente!" << endl;
+        }
+        case 3:
             return 0;
             break;
+        default:
+            cout<<endl;
+            cout << "Opcao Invalida! Tente novamente." << endl;
+            //0.85 seconds delay
+            Sleep(850);
+            cout<<endl;
+            break;
+    }
     }
 
-    cout << "Arvore criada com sucesso!" << endl;
-
-    //Espera de 2 segundos
-    Sleep(2000);
-
+    keepRunning = true;
     while (keepRunning)
     {
         printMainMenu();
+        std::getline(std::cin, sInput);
+        //Deals with invalid input (non-integer)
+        std::istringstream iss(sInput);
+        if (!(iss >> iOption)) {
+            //0.3 seconds delay
+            Sleep(450);
+            
+            cout<<endl;
+            std::cout << "Opcao invalida! Tente novamente." << std::endl;
+            
+            //0.3 seconds delay
+            Sleep(450);
+            
+            cout<<endl;
+            continue;
+        }
 
-        cin >> iOption;
+
 
         switch (iOption)
         {
@@ -127,25 +198,50 @@ int main()
 
                 switch (iOption)
                 {
-                    case 1:
+                    case 1:{
                     //Inserir Elemento
-                        cout << "Digite o numero a ser inserido: " << endl;
+                        cout<<endl;
+                        cout << "Digite um numero a ser inserido: " << endl;
+                        cout << "Caso digite meltiplos numeros apenas o primeiro sera inserido." << endl;
+                        cout<<endl;
                         cin >> iOption;
+
+                        auto startTime = std::chrono::high_resolution_clock::now();
                         tree.insertNode(iOption);
+                        auto endTime = std::chrono::high_resolution_clock::now();
+                        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+
+                        cout<<endl;
                         cout << "Elemento inserido com sucesso!" << endl;
-                        //Espera de 1 segundo
-                        Sleep(1000);
+                        cout<<"Tempo da operacao "<<duration<<" microsegundos."<<endl;
+                        cout<<"Pressione ENTER para continuar."<<endl;
+                        fflush(stdin);
+                        getchar();
                         break;
-                    case 2:
+                    }
+                    case 2:{
                     //Remover Elemento
+                        cout<<endl;
                         cout << "Digite o numero a ser deletado: " << endl;
+                        cout<<endl;
                         cin >> iOption;
+
+                        cout<<endl;
                         cout << "Removendo elemento..." << endl;
-                        //Espera de 1 segundo
-                        Sleep(1000);
+
+                        auto startTime = std::chrono::high_resolution_clock::now();
                         tree.deleteNode(tree.searchNode(iOption));
+                        auto endTime = std::chrono::high_resolution_clock::now();
+                        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+                        
+                        cout<<endl;
+                        cout<<"Tempo da operacao "<<duration<<" microsegundos."<<endl;
+                        cout<<"Pressione ENTER para continuar."<<endl;
+                        fflush(stdin);
+                        getchar();
                         break;
-                    case 3:
+                    }
+                    case 3:{
                     //Bubble Sort
                         cout << "Convertendo arvore para lista" << endl;
                         listTree = convertToListPostOrder(tree);
@@ -161,7 +257,8 @@ int main()
                         //Espera de 4 segundos
                         Sleep(4000);
                         break;
-                    case 4:
+                    }
+                    case 4:{
                     //Selection Sort
                         cout << "Convertendo arvore para lista" << endl;
                         listTree = convertToListPostOrder(tree);
@@ -178,7 +275,8 @@ int main()
                         //Espera de 4 segundos
                         Sleep(4000);
                         break;
-                    case 5:
+                    }
+                    case 5:{
                     //Insertion Sort
                         cout << "Convertendo arvore para lista" << endl;
                         listTree = convertToListPostOrder(tree);
@@ -194,6 +292,7 @@ int main()
                         //Espera de 4 segundos
                         Sleep(4000);
                         break;
+                    }
                     case 6: 
                         break;
                     case 7:
@@ -218,49 +317,120 @@ int main()
 
                 switch (iOption)
                 {
-                    case 1:
-                        cout << "Altura da arvore: " << tree.getHeight() << endl;
-                        //Espera de 4 segundos
-                        Sleep(4000);
+                    case 1:{
+
+                        auto startTime = std::chrono::high_resolution_clock::now();
+                        int iHeight = tree.getHeight();
+                        auto endTime = std::chrono::high_resolution_clock::now();
+                        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+
+                        cout<<endl;
+                        cout << "Altura da arvore: " << iHeight << endl;
+                        cout<<"Tempo da operacao "<<duration<<" microsegundos."<<endl;
+                        cout<<"Pressione ENTER para continuar."<<endl;
+                        fflush(stdin);
+                        getchar();
+
                         break;
-                    case 2:
-                        cout << "Tamanho da arvore: " << tree.getSize() << endl;
-                        //Espera de 4 segundos
-                        Sleep(4000);
+                    }
+                    case 2:{
+                        auto startTime = std::chrono::high_resolution_clock::now();
+                        int iSize = tree.getSize();
+                        auto endTime = std::chrono::high_resolution_clock::now();
+                        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+
+                        cout<<endl;
+                        cout << "Tamanho da arvore: " << iSize << endl;
+                        cout<<"Tempo da operacao "<<duration<<" microsegundos."<<endl;
+                        cout<<"Pressione ENTER para continuar."<<endl;
+
+                        fflush(stdin);
+                        getchar();
+
                         break;
-                    case 3:
+                    }
+                    case 3:{
                         cout << "Digite o numero a ser buscado: " << endl;
+                        cout<<endl;
                         cin >> iOption;
+
+                        auto startTime = std::chrono::high_resolution_clock::now();
                         ptrNode = tree.searchNode(iOption);
-                        cout << "Endereco de memoria do elemento " << iOption << ": " << ptrNode << endl;
-                        //Espera de 4 segundos
-                        Sleep(4000);
+                        auto endTime = std::chrono::high_resolution_clock::now();
+                        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+                        
+                        cout<<endl;
+                        if (ptrNode == nullptr){
+                            cout << "Elemento nao encontrado!" << endl;
+                        }
+                        else{
+                            cout << "Endereco de memoria do elemento " << iOption << ": " << ptrNode << endl;
+                        }
+                        cout<<"Tempo da operacao "<<duration<<" microsegundos."<<endl;
+                        cout<<"Pressione ENTER para continuar."<<endl;
+                        fflush(stdin);
+                        getchar();
                         break;
-                    case 4:
-                        cout << "A arvore e completa? " << (tree.isComplete() ? "Sim" : "Nao") << endl;
-                        //Espera de 4 segundos
-                        Sleep(4000);    
+                    }
+                    case 4:{
+                        auto startTime = std::chrono::high_resolution_clock::now();
+                        bool bComplete = tree.isComplete();
+                        auto endTime = std::chrono::high_resolution_clock::now();
+                        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+
+                        cout<<endl;
+                        cout << "A arvore e completa? " << (bComplete ? "Sim" : "Nao") << endl;
+                        cout<<"Tempo da operacao "<<duration<<" microsegundos."<<endl;
+                        cout<<"Pressione ENTER para continuar."<<endl;
+                        fflush(stdin);
+                        getchar();
                         break;
-                    case 5:
-                        cout << "A arvore e perfeita? " << (tree.isPerfect() ? "Sim" : "Nao") << endl;
-                        //Espera de 4 segundos
-                        Sleep(4000);
+                    }
+                    case 5:{
+                        auto startTime = std::chrono::high_resolution_clock::now();
+                        bool bIsPerfect = tree.isPerfect();
+                        auto endTime = std::chrono::high_resolution_clock::now();
+                        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+
+                        cout<<endl;
+                        cout << "A arvore e perfeita? " << (bIsPerfect ? "Sim" : "Nao") << endl;
+                        cout<<"Tempo da operacao "<<duration<<" microsegundos."<<endl;
+                        cout<<"Pressione ENTER para continuar."<<endl;
+
+                        fflush(stdin);
+                        getchar();
                         break;
-                    case 6:
+                    }
+                    case 6:{
+
+                        cout<<endl;
+                        auto startTime = std::chrono::high_resolution_clock::now();
                         tree.traverseBFS();
-                        //Espera de 4 segundos
-                        Sleep(4000);
+                        auto endTime = std::chrono::high_resolution_clock::now();
+                        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+
+                        cout<<endl;
+                        cout<<endl;
+                        cout<<"Tempo da operacao "<<duration<<" microsegundos."<<endl;
+                        cout<<"Pressione ENTER para continuar."<<endl;
+
+                        fflush(stdin);
+                        getchar();
                         break;
-                    case 7:
+                    }
+                    case 7:{
                         break;
-                    case 8:
+                    }
+                    case 8:{
                         keepRunning = false;
                         break;
-                    default:
+                    }
+                    default:{
                         cout << "Opcao invalida!" << endl;
                         //Espera de 4 segundos
                         Sleep(4000);
                         break;
+                    }
                 }
 
                 break;

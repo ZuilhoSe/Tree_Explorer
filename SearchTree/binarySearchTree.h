@@ -75,7 +75,7 @@ public:
 
     Node* getRoot(){return this->_ptrRoot;}
 
-    void createFromTxt(std::string sFilename);
+    bool createFromTxt(std::string sFilename);
     void buildTreeFromInput();
 }
 SearchTree;
