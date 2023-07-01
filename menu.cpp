@@ -9,7 +9,6 @@
 #include <sstream>
 #include <limits>
 
-
 using namespace std;
 
 void printHeader()
@@ -30,6 +29,7 @@ void printMainMenu()
     cout << "2 - Informacoes sobre a Arvore" << endl;
     cout << "3 - Informacoes sobre o trabalho" << endl;
     cout << "4 - Sair" << endl;
+    cout<<endl;
 }
 
 void printInfoMenu()
@@ -45,6 +45,7 @@ void printInfoMenu()
     cout << "6 - Imprimir Arvore" << endl;
     cout << "7 - Voltar" << endl;
     cout << "8 - Sair" << endl;
+    cout<<endl;
 }   
 
 void printManipulationMenu()
@@ -60,6 +61,7 @@ void printManipulationMenu()
     cout << "6 - Converter para lista e ordernar: ShellSort" << endl;
     cout << "7 - Voltar" << endl;
     cout << "8 - Sair" << endl;
+    cout<<endl;
 }
 
 void printWorkInfo()
@@ -72,6 +74,11 @@ void printWorkInfo()
     cout << "   - Osmar" << endl;
     cout << "   - Vini" << endl;
     cout << "   - Zuzu" << endl;
+
+    cout<<endl;
+    cout<<"Pressione ENTER para voltar."<<endl;
+    fflush(stdin);
+    getchar();
 }
 
 int main()
@@ -86,15 +93,18 @@ int main()
     SelectionSorter sorterSelection;
     InsertionSorter sorterInsertion;
     string sInput;
+    bool bInvalidOptFlag=true;
 
+    while(keepRunning){
     system("cls");
     printHeader();
-    while(keepRunning){
     cout << "Para comecar, e preciso criar uma arvore:" << endl;
-    cout << "   1 - contruir Arvore a partir de arquivo" << endl;
-    cout << "   2 - contruir Arvore a partir de entrada do usuario" << endl;
-    cout << "   3 - Sair" << endl;
+    cout << "1 - contruir Arvore a partir de arquivo" << endl;
+    cout << "2 - contruir Arvore a partir de entrada do usuario" << endl;
+    cout << "3 - informacoes sobre o trabalho" << endl;
+    cout << "4 - Sair" << endl;
 
+    cout<<endl;
     std::getline(std::cin, sInput);
 
     //Deals with invalid input (non-integer)
@@ -117,9 +127,13 @@ int main()
     switch (iOption)
     {
         case 1:{
-            cout << "Digite o caminho do arquivo: " << endl;
+            cout<<endl;
+            cout << "Digite o caminho do arquivo: ";
             cin >> sFilename;
-            
+
+            //cleans the buffer to avoid errors
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
             auto startTime = std::chrono::high_resolution_clock::now();
             bool created=tree.createFromTxt(sFilename);
             auto endTime = std::chrono::high_resolution_clock::now();
@@ -153,6 +167,9 @@ int main()
             break;
         }
         case 3:
+            printWorkInfo();
+            break;
+        case 4:
             return 0;
             break;
         default:
@@ -202,7 +219,7 @@ int main()
                     //Inserir Elemento
                         cout<<endl;
                         cout << "Digite um numero a ser inserido: " << endl;
-                        cout << "Caso digite meltiplos numeros apenas o primeiro sera inserido." << endl;
+                        cout << "Caso digite multiplos numeros apenas o primeiro sera inserido." << endl;
                         cout<<endl;
                         cin >> iOption;
 
@@ -297,6 +314,8 @@ int main()
                         break;
                     case 7:
                     //Voltar
+                        //clean buffer to avoid nasty bugs
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         break;
                     case 8:
                         keepRunning = false;
@@ -350,6 +369,7 @@ int main()
                         break;
                     }
                     case 3:{
+                        cout<<endl;
                         cout << "Digite o numero a ser buscado: " << endl;
                         cout<<endl;
                         cin >> iOption;
@@ -419,6 +439,8 @@ int main()
                         break;
                     }
                     case 7:{
+                        //clean buffer to avoid nasty bugs
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         break;
                     }
                     case 8:{
@@ -434,11 +456,9 @@ int main()
                 }
 
                 break;
-            case 3:
+            case 3:{
                 printWorkInfo();
-                //Espera de 4 segundos
-                Sleep(4000);
-                break;
+                break;}
             case 4:
             //Sair
                 keepRunning = false;
