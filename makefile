@@ -9,7 +9,7 @@ menu: ./DoubleList/doubleLinkedList.o \
 	./SearchTree/binarySearchTree.o \
 	./DoubleList/Sorters.o \
 	./Convert/convertTreeList.o \
-	-o menu -I include -L lib -lmingw32 -lSDL2main -lSDL2
+	-o menu -I DoubleList/include -L DoubleList/lib -lmingw32 -lSDL2main -lSDL2
 
 DoubleList/doubleLinkedList: ./DoubleList/doubleLinkedList.cpp \
 	./DoubleList/doubleLinkedList.h
