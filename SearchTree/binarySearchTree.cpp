@@ -3,6 +3,7 @@
 #include <fstream>
 #include "binarySearchTree.h"
 #include "../DoubleList/doubleLinkedList.h"
+#include <chrono>
 using namespace std;
 Node::~Node(){
         delete ptrLeft;
@@ -199,25 +200,28 @@ void SearchTree::readBinaryTree(Node*& ptrNode, ifstream& fin)
     }
 }
 
-void SearchTree::createFromTxt(string sFilename) 
+bool SearchTree::createFromTxt(string sFilename) 
 {
     ifstream fin(sFilename);
   
     if (!fin) 
     {
+        cout<<endl;
         cout << "Erro ao abrir o arquivo." << endl;
-        return;
+        return false;
     }
     
     readBinaryTree(_ptrRoot, fin);
     fin.close();
+    return true;
 }
 
 void SearchTree::buildTreeFromInput()
 {
     string input;
     int number;
-    
+    auto duration = 0;
+
     cout << "Digite os numeros (# para parar), o primeiro numero sera a raiz: " << endl;
 
     while (cin >> input) {
@@ -225,11 +229,16 @@ void SearchTree::buildTreeFromInput()
             break;
         } else if (isdigit(input[0])) {
             number = stoi(input);
+            auto startTime = std::chrono::high_resolution_clock::now();
             insertNode(number);
+            auto endTime = std::chrono::high_resolution_clock::now();
+            duration+= std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
         } else {
             cout << "Entrada invalida. Digite novamente:" << endl;
         }
     }
+    cout<<endl;
+    cout<<"Tempo de operacao: "<<duration<<" microsegundos"<<endl;
 }
 
 void SearchTree::traverseBFS()
