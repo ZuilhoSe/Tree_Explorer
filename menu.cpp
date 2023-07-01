@@ -9,7 +9,6 @@
 #include <sstream>
 #include <limits>
 
-
 using namespace std;
 
 void printHeader()
@@ -91,16 +90,18 @@ int main()
     SelectionSorter sorterSelection;
     InsertionSorter sorterInsertion;
     string sInput;
+    bool bInvalidOptFlag=true;
 
+    while(keepRunning){
     system("cls");
     printHeader();
-    while(keepRunning){
     cout << "Para comecar, e preciso criar uma arvore:" << endl;
     cout << "   1 - contruir Arvore a partir de arquivo" << endl;
     cout << "   2 - contruir Arvore a partir de entrada do usuario" << endl;
     cout << "   3 - informacoes sobre o trabalho" << endl;
     cout << "   4 - Sair" << endl;
 
+    cout<<endl;
     std::getline(std::cin, sInput);
 
     //Deals with invalid input (non-integer)
@@ -123,9 +124,13 @@ int main()
     switch (iOption)
     {
         case 1:{
-            cout << "Digite o caminho do arquivo: " << endl;
+            cout<<endl;
+            cout << "Digite o caminho do arquivo: ";
             cin >> sFilename;
-            
+
+            //cleans the buffer to avoid errors
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
             auto startTime = std::chrono::high_resolution_clock::now();
             bool created=tree.createFromTxt(sFilename);
             auto endTime = std::chrono::high_resolution_clock::now();

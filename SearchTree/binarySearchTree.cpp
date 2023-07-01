@@ -225,9 +225,11 @@ void SearchTree::buildTreeFromInput()
     int number;
     auto duration = 0;
 
+    cout<<endl;
     cout << "Digite os numeros (# separado com espaco para parar), o primeiro numero sera a raiz: " << endl;
     cout << "Exemplo de entrada: 1 2 3 4 5 #"<<endl;
 
+    cout<<endl;
     while (cin >> input) {
         if (input == "#") {
             break;
